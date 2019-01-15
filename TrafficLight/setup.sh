@@ -6,3 +6,5 @@ set -o xtrace               #prints commands to console
 cd $(dirname $0)
 
 export PORT=8080
+
+dep ensure
