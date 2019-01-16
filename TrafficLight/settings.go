@@ -1,9 +1,5 @@
 package main
 
-import (
-	"os"
-)
-
 type Setting struct {
 	Host string
 	Port string
@@ -11,6 +7,6 @@ type Setting struct {
 
 func InitialiseSetting() *Setting {
 	settings := new(Setting)
-	settings.Port = os.Getenv("PORT")
+	settings.Port = "8080"
 	return settings
 }

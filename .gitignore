@@ -17,4 +17,4 @@ files
 **/vendor/*
 
 #Traffic lighs
-**/Gopkg.toml
+**/Gopkg.lock
