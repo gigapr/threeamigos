@@ -13,7 +13,8 @@ func main() {
 
 	http.Handle("/metrics", promhttp.Handler())
 
-	log.Println("Listening on port: ", settings.Port)
+	trafficLight := NewTrafficLightController("1234567890")
+	trafficLight.Start()
 
 	log.Fatal(http.ListenAndServe(":"+settings.Port, nil))
 }
