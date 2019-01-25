@@ -1,0 +1,26 @@
+matrix:
+  include:
+    - language: go
+      before_script:
+        - cd TrafficLight
+      script:
+        - make
+
+    # https://stackoverflow.com/questions/27644586/how-to-set-up-travis-ci-with-multiple-languages
+    # - language: android
+    #   jdk: oraclejdk8
+    #   android:
+    #     components:
+    #       - tools
+    #       - android-25
+    #       - build-tools-25.0.3
+    #   before_script:
+    #     - cd android/AppName
+    #   script:
+    #     - ./gradlew build connectedCheck
+
+    
+
+notifications:
+  email:
+    - gigapr@hotmail.com
