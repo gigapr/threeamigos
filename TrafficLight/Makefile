@@ -6,7 +6,7 @@ all: deps test build
 build: 
 		cd $(SOURCE_DIRECTORY) && go build -o $(BINARY_NAME) -v
 test: 
-		go test -v ./...
+		go get golang.org/x/tools/cmd/cover && go test -v ./... -coverprofile fmt
 clean: 
 		cd $(SOURCE_DIRECTORY) && go clean && rm -f $(BINARY_NAME) && rm -f $(BINARY_UNIX)
 run:
