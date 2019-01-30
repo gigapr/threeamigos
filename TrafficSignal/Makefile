@@ -2,6 +2,7 @@ BINARY_NAME=trafficsignal
 BINARY_UNIX=$(BINARY_NAME)_unix
 SOURCE_DIRECTORY=src
 
+
 all: deps test build
 
 build: 
