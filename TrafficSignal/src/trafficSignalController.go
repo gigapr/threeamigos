@@ -5,18 +5,18 @@ import (
 	"time"
 )
 
-type TrafficLightController struct {
+type TrafficSignalController struct {
 	ID string
 }
 
-func NewTrafficLightController(id string) *TrafficLightController {
-	tl := new(TrafficLightController)
+func NewTrafficSignalController(id string) *TrafficSignalController {
+	tl := new(TrafficSignalController)
 	tl.ID = id
 
 	return tl
 }
 
-func (tl TrafficLightController) Start() {
+func (tl TrafficSignalController) Start() {
 
 	log.Print("Starting traffic light " + tl.ID)
 

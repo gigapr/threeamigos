@@ -19,4 +19,4 @@ files
 #Traffic lighs
 **/Gopkg.lock
 
-TrafficLight/src/trafficlight*
+TrafficSignal/src/trafficsignal*

@@ -1,0 +1,44 @@
+FROM golang:1.8.5-jessie as builder
+
+# install xz
+RUN apt-get update && apt-get install -y \
+    xz-utils \
+&& rm -rf /var/lib/apt/lists/*
+
+# install UPX
+ADD https://github.com/upx/upx/releases/download/v3.94/upx-3.94-amd64_linux.tar.xz /usr/local
+RUN xz -d -c /usr/local/upx-3.94-amd64_linux.tar.xz | \
+    tar -xOf - upx-3.94-amd64_linux/upx > /bin/upx && \
+    chmod a+x /bin/upx
+
+# setup the working directory
+WORKDIR /go/src/trafficsignal/
+
+# add source code
+ADD src src
+ADD Makefile .
+
+RUN make deps
+
+# build the source
+RUN make deps
+RUN make build
+
+# run tests
+RUN make test
+
+# strip and compress the binary
+RUN strip --strip-unneeded src/trafficsignal
+RUN upx src/trafficsignal
+
+# use a minimal alpine image
+FROM alpine:3.9
+
+# set working directory
+WORKDIR /root
+
+# copy the binary and templates from builder
+COPY --from=builder /go/src/trafficsignal/src/trafficsignal .
+
+# run the binary
+CMD ["./trafficsignal"]
