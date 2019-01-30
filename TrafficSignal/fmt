@@ -1,7 +1,0 @@
-mode: set
-threeamigos/TrafficSignal/src/main.go:10.13,20.2 5 0
-threeamigos/TrafficSignal/src/settings.go:8.35,12.2 3 0
-threeamigos/TrafficSignal/src/trafficSignalController.go:12.69,17.2 3 0
-threeamigos/TrafficSignal/src/trafficSignalController.go:19.43,23.12 2 0
-threeamigos/TrafficSignal/src/trafficSignalController.go:23.12,24.7 1 0
-threeamigos/TrafficSignal/src/trafficSignalController.go:24.7,29.4 2 0
