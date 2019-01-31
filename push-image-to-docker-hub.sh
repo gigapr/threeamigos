@@ -1,5 +1,8 @@
 #!/bin/bash
 
+set -e & set -o pipefail    #to exit on command error
+set -o xtrace               #prints commands to console
+
 export ORGANISATION_NAME=threeamigos
 
 export BUILD_NUMBER=$1
