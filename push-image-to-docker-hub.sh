@@ -13,4 +13,3 @@ docker build -t $IMAGE_NAME .
 docker tag $IMAGE_NAME $TAG
 docker login -u $DOCKER_HUB_USER -p $DOCKER_HUB_PASSWORD
 docker push $TAG
-docker logout
