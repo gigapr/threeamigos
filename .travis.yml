@@ -4,7 +4,7 @@ matrix:
       before_install:
          - curl https://raw.githubusercontent.com/golang/dep/master/install.sh | sh  
       before_script:
-        - cd TrafficLight
+        - cd TrafficSignal
       script:
         - make
 
