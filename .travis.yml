@@ -8,8 +8,15 @@ matrix:
          - curl https://raw.githubusercontent.com/golang/dep/master/install.sh | sh  
       before_script:
         - cd TrafficSignal
+      env:
+        - |
+          if [ "$TRAVIS_BRANCH" == "master" ]; then 
+            DOCKER_HUB_PASSWORD = $true;
+          else 
+            DOCKER_HUB_PASSWORD = $false;
+          fi;
       script:
-        - sh ../push-image-to-docker-hub.sh $TRAVIS_BUILD_NUMBER trafficsignal $DOCKER_HUB_USER $DOCKER_HUB_PASSWORD
+          - sh ../push-image-to-docker-hub.sh $TRAVIS_BUILD_NUMBER trafficsignal $DOCKER_HUB_USER $DOCKER_HUB_PASSWORD
 
     # https://stackoverflow.com/questions/27644586/how-to-set-up-travis-ci-with-multiple-languages
     # - language: android
