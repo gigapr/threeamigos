@@ -9,7 +9,7 @@ matrix:
       before_script:
         - cd TrafficSignal
       script:
-        - sh ../push-image-to-docker-hub.sh $TRAVIS_BUILD_NUMBER trafficsignal $DOCKER_HUB_USER $DOCKER_HUB_PASSWORD
+          - sh ../build-and-push-image-to-docker-hub.sh $TRAVIS_BUILD_NUMBER trafficsignal $DOCKER_HUB_USER $DOCKER_HUB_PASSWORD $TRAVIS_BRANCH
 
     # https://stackoverflow.com/questions/27644586/how-to-set-up-travis-ci-with-multiple-languages
     # - language: android
