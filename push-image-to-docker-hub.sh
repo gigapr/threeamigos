@@ -2,8 +2,6 @@
 
 set -o xtrace               #prints commands to console
 
-cd $(dirname $0)
-
 export ORGANISATION_NAME=threeamigos
 
 export BUILD_NUMBER=$1
