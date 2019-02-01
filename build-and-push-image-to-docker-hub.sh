@@ -18,9 +18,12 @@ echo $BRANCH
 
 if [ $BRANCH = 'master']
 then
+    echo "Pushing image to Docker Hub"
     docker tag $IMAGE_NAME $TAG
     docker login -u $DOCKER_HUB_USER -p $DOCKER_HUB_PASSWORD
     docker push $TAG
+else
+    echo "Not pushing image to docker. Current branch $BRANCH"
 fi
 
 docker logout
