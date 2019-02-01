@@ -11,12 +11,12 @@ matrix:
       env:
         - |
           if [ "$TRAVIS_BRANCH" == "master" ]; then 
-            DOCKER_HUB_PASSWORD = $true;
+            PUBLISH_TO_DOCKER_HUB = $true;
           else 
-            DOCKER_HUB_PASSWORD = $false;
+            PUBLISH_TO_DOCKER_HUB = $false;
           fi;
       script:
-          - sh ../push-image-to-docker-hub.sh $TRAVIS_BUILD_NUMBER trafficsignal $DOCKER_HUB_USER $DOCKER_HUB_PASSWORD
+          - sh ../push-image-to-docker-hub.sh $TRAVIS_BUILD_NUMBER trafficsignal $DOCKER_HUB_USER $DOCKER_HUB_PASSWORD $PUBLISH_TO_DOCKER_HUB
 
     # https://stackoverflow.com/questions/27644586/how-to-set-up-travis-ci-with-multiple-languages
     # - language: android
