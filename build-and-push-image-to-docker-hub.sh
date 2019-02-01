@@ -14,16 +14,13 @@ export TAG=$ORGANISATION_NAME/$IMAGE_NAME:$BUILD_NUMBER
 
 docker build -t $IMAGE_NAME .
 
-echo $BRANCH
-
 if [ "$BRANCH" == "master"];
 then
     echo "Pushing image to Docker Hub"
     docker tag $IMAGE_NAME $TAG
     docker login -u $DOCKER_HUB_USER -p $DOCKER_HUB_PASSWORD
     docker push $TAG
+    docker logout
 else
     echo "Not pushing image to docker. Current branch $BRANCH"
-fi
-
-docker logout
+fi;
