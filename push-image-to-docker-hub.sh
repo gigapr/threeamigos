@@ -16,7 +16,7 @@ docker build -t $IMAGE_NAME .
 docker tag $IMAGE_NAME $TAG
 docker login -u $DOCKER_HUB_USER -p $DOCKER_HUB_PASSWORD
 
-echo '$PUBLISH_TO_DOCKER_HUB'
+echo $PUBLISH_TO_DOCKER_HUB
 
 if [ $PUBLISH_TO_DOCKER_HUB ]
 then
