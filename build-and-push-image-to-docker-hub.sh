@@ -14,8 +14,6 @@ export TAG=$ORGANISATION_NAME/$IMAGE_NAME:$BUILD_NUMBER
 
 docker build -t $IMAGE_NAME .
 
-echo $BRANCH
-echo $BRANCH == master
 if [ $BRANCH == master ]; then
     echo "Pushing image to Docker Hub"
     docker tag $IMAGE_NAME $TAG
