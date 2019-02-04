@@ -57,24 +57,88 @@ In some cases, an aspect may display words, such as *BUS*, in the case of signal
 So, when defining a traffic signal type, it may be necessary for the type to be capable of being associated with another traffic signal. Relevant (safety and regulatory) mechanisms will also need to be implemented to ensure that any rules or regulations on signal dependency and precedence are adhered to.
 
 ### Phases and Stages
-#### Traffic Movements, Traffic Signal Phases, and Traffic Signal Counts
+#### Traffic Movements, Traffic Signal Phases, and Traffic Signals
 At a road crossing or junction, different or the same *modes* of traffic (e.g. vehicles and pedestrians or vehicles and vehicles) come into conflict and it is necessary to control these conflicts to ensure safety and to manage traffic flow. To do so, it is necessary to model the various traffic movements or turns that are permitted to take place at the crossing or junction. In most cases, each movement will have different levels of traffic and demand and, therefore, needs to be controlled by a dedicated traffic signal of the relevant type (e.g. a 3-aspect vehicular or 2-aspect pedestrian signal). This also provides the capability to manage every possible combination of movements, to minimise traffic delay.
 
 In traffic control engineering, in Britain, the term *phase* is used to denote and model a particular traffic signal and is named after a unique letter of the alphabet (beginning with `A`) for the site in question. In reality, a single phase may be used to control multiple physical signals. This is because, at most traffic signal sites, multiple copies of the signal for a particular movement may be installed to ensure adequate visibility of the signal states to relevant road users. For example, on a multi-lane approach, a gantry may be installed, across the width of the road, with multiple signals for the same movement installed on it to ensure that drivers in each lane can clearly see the signal that applies to them. Therefore, a traffic phase can control more than one physical signal, but all signal types must be the same and match the phase's type (e.g. a standard vehicular movement phase may only be associated with 3-aspect vehicular signals). A phase type is, therefore, closely associated with a particular signal type.
 
+When a phase is said to be green, it means that the movements the phase controls have been given the right of way and their on-street traffic signals are denoting this by way of displaying the pattern and/or colour that regulations specify as having the right of way. When a phase is said to be red, it means that the movements the phase controls have lost the right of way and their on-street traffic signals are denoting this in the way in which regulations dictate. For example when, in Britain, a vehicular signal changes from green to amber, its associated phase is effectively red, as amber is an order to stop. The phase continues to be seen as red while the signal is red and even when the red and amber combination of signals are shown. Only when the signal is green does its phase become green.
+
 #### Phase Conflicts
-**TODO**
+At traffic signal sites, a number of movements will be in conflict with other movements. To ensure safety of road users, the traffic signal phases that give these movements the right of way must never be green at the same time. To enforce this, traffic signal controllers are configured to be aware of conflicting phases and to never allow them to be green at the same time, even if specified in traffic signal timing plans.
+
+In traffic controller specications, phase conflicts are normally denoted within a matrix/table similar to that shown below. In this example, phases that conflict have a cross placed where their columns and rows intersect. Those that do not conflict have no such indication at their intersection.
+
+| |A|B|C|D|
+|-|-|-|-|-|
+|A|-| | |X|
+|B| |-|X|X|
+|C| |X|-| |
+|D|X|X| |-|
+
+In the above example phases `A` and `D` conflict with one another and phase `B` conflicts with both phases `C` and `D`. This means that while phase `A` is green, all phases except `D` can be green too. If phase `B` is green, phase `A` may also be green, but `C` and `D` must be red. If `C` is green, then `A` and `D` can also be green, but `B` must be red. If `D` is green, then `C` can also be green, but neither `A`, nor `B` can be green.
 
 #### Dummy Phases
-**TODO**
+In some cases, to achieve the form of traffic control envisaged by a traffic control engineer, it may be necessary to employ *dummy phases* which do not actually control traffic signals. These phases are introduced to invoke fictitious conflicts to ensure a particular combination of real signal phase greens or reds are achievable.
 
-#### Minimum and Maximum Green Signal Durations
-**TODO**
+In many cases, dummy phases are used to force an *all-red* signal combination on street. In the example below, phase `E` is in conflict with all other phases. Therefore, when `E` is green, no other phase can be green (i.e. all other phases must be red). `E` itself, however, is not required to be associated with an actual traffic signal on street, making it a dummy phase.
 
-#### Intergreens and Variable Intergreens
-**TODO**
+| |A|B|C|D|E|
+|-|-|-|-|-|-|
+|A|-| | |X|X|
+|B| |-|X|X|X|
+|C| |X|-| |X|
+|D|X|X| |-|X|
+|E|X|X|X|X|-|
+
+ This can be for regulatory reasons, which may specify that when a traffic signal controller is powered up, it must force all signals to go red and remain as such for a prescribed duration. It can also be for maintenance reasons. For example, an all-red signal combination can be activated to allow maintenance staff to enter the middle of a junction safely, and remain there for as long as necessary, by adjusting the duration of the all-red signal combination. Also, all-red can be used to cause deliberate delays, to road users, to allow any excess of vehicles still in the middle of the junction (perhaps due to a flow restriction downstream of their exit) to exit the junction before a conflicting phase is made to go green.
+
+#### Minimum and Maximum Phase Green Durations
+While a phase is green its conflicting phases will be red and road users whose signals these phases control will have to remain stationary. This obviously results in a delay to these road users and, when concerning vehicular traffic, secondary issues such as an increase in local pollution levels. Therefore, it is necessary that phases are not permitted to be green for unreasonable durations. To enforce this, phases may be given a maximum green duration limit within a traffic signal controller's specifications. Also, to ensure that road users have been given reasonable time to start moving into and exit the signal site, phases must remain green for a minimum duration before being permitted to be turned red again.
+
+The minimum and maximum phase durations may be calculated by traffic control engineers, based on their knowledge of the shape and topology of traffic signal sites, may be dictated by regulation, or may be set due to a combination of both.
+
+#### Intergreens
+Where phases conflict, it is important that they are not permitted to be green at the same time. However, even when a phase goes red, its conflicting phases should not be permitted to go green immediately. This is to ensure that any traffic (including pedestrians) that is still within the conflicting space has safely cleared the area.
+
+We have already discussed how all-red combination of signals can be employed to cause deliberate delays to allow traffic to clear a junction. However, using such signal combinations can be very wasteful in obtaining highest levels of traffic throughput, as even non-conflicting phases are forced to be red unnecessarily.
+
+To define necessary safety-critical delays between phases going red and other (normally, conflicting) phases going green, phase *intergreens* are specified within traffic signal controllers' configuration parameters. Intergreens are defined as number of seconds of delay necessary to be implemented between a particular phase going red and another conflicting phase going green. Like minimum and maximum phase durations, intergreens can be defined based on the shape and topology of signal sites (and traffic speeds), by regulation, or a combination of both.
+
+The following table shows the intergreen for the phases discussed earlier. The letter on each row defines the 'from' phase and the letter on each column defines the 'to' phase. Therefore, the numbers given at the intersection of the rows and columns define the intergreen durations (in seconds) that must be realised.
+
+| |A|B|C|D|E|
+|-|-|-|-|-|-|
+|A|-| | |3|5|
+|B| |-|3|3|5|
+|C| |8|-| |5|
+|D|9|9| |-|5|
+|E|5|5|5|5|-|
+
+
+Note that, where there is no phase conflict, there is no intergreen. Also, note that the value of the intergreens are not necessarily symmetrical along the diagonal (e.g. the `A` to `D` intergreen is not the same as the `D` to `A` intergreen). This is because some road users may require more time to clear the point of conflict than others. Let's assume that phase `A` and `B` are vehicular traffic phases, while `C` and `D` are pedestrian phases. As vehicles tend to move faster than pedestrians, the intergreen from a vehicular phase to the pedestrian phases can be short (3 seconds, in this example), while the intergreen from a pedestrian phase to a vehicular phase will need to be longer (8 and 9 seconds, in this example).
+
+Note that the intergreen duration must include any regulatory signal states that denote the loss of right of way. As previously stated, in Britain, a green vehicular signal must be followed by 3 seconds of an amber signal, before going red. Therefore, the lowest possible intergreen value for a vehicular traffic phase is 3 seconds and lower values cannot be permitted. This is something that software used in designing, validating, and programming a traffic signal controller must check, based on the given phase types.
+
+#### Variable Intergreens
+Similarly to how an all-red signal combination may need to be extended to allow for traffic in the middle of a junction to safely clear points of conflict, integreen durations can be extended to realise the safe effect while avoiding the unnecessary delays that an all-read signal combination causes to road users that are not concerned.
+
+Integreens are usually extended by installation of relevant detectors, whose output data can be monitored by a traffic signal controller to decided whether there is any need to extend an intergreen period for longer than the given minimum. For example, infra-red detectors installed at a pedestrian crossing for monitoring people in the road can provide data on whether any pedestrians are still crossing the road after the default intergreen period, from the pedestrian phase to a vehicular phase, has expired. The controller can then extend the integreen duration, by a calculated value, to ensure pedestrian safety.
+
+Variable intergreens are denoted, within a traffic signal controller, by way of a second integreen table/matrix which specifies the maximum intergreen durations. The traffic signal controller will then ensure that any extensions granted do not exceed these limits. Where a maximum intergreen matches the default (or minimum) intergreen, the phase concerned does not have a variable intergreen. If we assume the following to be a maximum integreen table for the integreen table discussed above, only phases `C` and `D` (which we said were pedestrian phases) are permitted to have an extended intergreen before they go red and opposing vehicular phases go green.
+
+| |A|B|C|D|E|
+|-|-|-|-|-|-|
+|A|-| | |3|5|
+|B| |-|3|3|5|
+|C| |15|-| |5|
+|D|16|16| |-|5|
+|E|5|5|5|5|-|
 
 #### Stages
+**TODO**
+
+#### Phase Starting and Ending Delays
 **TODO**
 
 ### Signal Timing Plans
