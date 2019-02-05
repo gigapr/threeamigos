@@ -2,7 +2,8 @@
 
 ## Background
 
-### Traffic Signals
+
+### [Traffic Signals](TrafficSignal/README.md)
 #### Purpose
 Traffic signals are often used on roads to better control and manage the flow of *traffic*, at junctions and other areas of conflicting traffic movements (e.g. at pedestrian crossings), and to improve safety of road users at conflict points.
 
