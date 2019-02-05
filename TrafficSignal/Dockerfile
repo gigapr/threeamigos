@@ -18,8 +18,6 @@ WORKDIR /go/src/trafficsignal/
 ADD src src
 ADD Makefile .
 
-RUN make deps
-
 # build the source
 RUN make deps
 RUN make build
