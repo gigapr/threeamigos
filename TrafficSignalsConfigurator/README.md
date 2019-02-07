@@ -1,15 +1,13 @@
 # Traffic Signal Configurator
 
-To run the application execute
+To build and run the tests
 
 ```
-make all
-make run
+./build.sh
 ```
 
-To run the application within a Docker container 
+To run the application 
 
 ```
-docker build -t trafficlightlocal .
-docker run -p 8080:8080 trafficlightlocal 
+./build.sh run
 ```

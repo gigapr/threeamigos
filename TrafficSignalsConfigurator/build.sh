@@ -12,6 +12,11 @@ build(){
     print "Starting building $path in $config mode."
     dotnet build "$path" --configuration "$config"
 }
+run(){
+    local path=$1
+    print "Starting running $path."
+    dotnet run -p "$path"
+}
 run_tests(){
     local path=$1
     local config=$2
@@ -31,6 +36,7 @@ usage(){
     print 'Usage:'
     print './build.sh | Execute build, test'
     print './build.sh build [Release|Debug] | Restore packages and build the solution'
+    print './build.sh run | Runs the Web project'
     print './build.sh test [Release|Debug] | Run all tests in the solution'
     print './build.sh pack outputDirectory [Release|Debug] | Package the Web project into the output directory'
     print './build.sh all outputDirectory [Release|Debug] | Execute build, test, pack'
@@ -42,7 +48,7 @@ usage(){
 
 directory=$(dirname "$0")
 solutionPath="$directory/src/TrafficSignalsConfigurator.sln"
-webProjectPath="$directory/src/TrafficSignalsConfigurator/TrafficSignalsConfigurator.Web.csproj"
+webProjectPath="$directory/src/TrafficSignalsConfigurator.Web/TrafficSignalsConfigurator.Web.csproj"
 usage
 target=${1:-'default'}
 
@@ -50,6 +56,10 @@ case ${target} in
     'build')
             configuration=${2:-Release}
             build $solutionPath $configuration
+        ;;
+
+    'run')
+            run "$webProjectPath"
         ;;
     'test')
             configuration=${2:-Release}
