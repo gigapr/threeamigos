@@ -1,4 +1,4 @@
-# Traffic Signal
+# Traffic Signal Configurator
 
 To run the application execute
 

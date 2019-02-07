@@ -16,7 +16,6 @@ main
 files
 **/vendor/*
 
-#Traffic lighs
 **/Gopkg.lock
 
-TrafficSignagi/src/trafficsignal*
+src/trafficsignal*
