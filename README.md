@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.com/gigapr/threeamigos.svg?branch=master)](https://travis-ci.com/gigapr/threeamigos)
+
 # Three Amigos
 
 ## Background
