@@ -49,7 +49,6 @@ usage(){
 directory=$(dirname "$0")
 solutionPath="$directory/src/TrafficSignalsConfigurator.sln"
 webProjectPath="$directory/src/TrafficSignalsConfigurator.Web/TrafficSignalsConfigurator.Web.csproj"
-usage
 target=${1:-'default'}
 
 case ${target} in
@@ -80,7 +79,7 @@ case ${target} in
         configuration=${3:-Release}
         build $solutionPath $configuration
         run_tests $solutionPath $configuration
-        pack $webProjectPath $outputDirectory $configuration
+        publish $webProjectPath $outputDirectory $configuration
     ;;
 
     'default')
