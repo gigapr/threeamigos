@@ -5,17 +5,12 @@ services:
 
 matrix:
   include:
-    - language: go
-      before_install:
-         - curl https://raw.githubusercontent.com/golang/dep/master/install.sh | sh  
-      before_script:
+    - before_script:
         - cd TrafficSignal
       script:
           - bash ../build-and-push-image-to-docker-hub.sh $TRAVIS_BUILD_NUMBER trafficsignal $DOCKER_HUB_USER $DOCKER_HUB_PASSWORD $TRAVIS_BRANCH
 
-    - language: csharp
-      dotnet: 2.1.502
-      before_script:
+    - before_script:
         - cd TrafficSignalsConfigurator
       script:
           - bash ../build-and-push-image-to-docker-hub.sh $TRAVIS_BUILD_NUMBER trafficsignalconfigurator $DOCKER_HUB_USER $DOCKER_HUB_PASSWORD $TRAVIS_BRANCH
