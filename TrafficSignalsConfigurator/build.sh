@@ -25,12 +25,12 @@ run_tests(){
     dotnet test "$fname" --configuration "$config" --no-build --no-restore /p:CollectCoverage=true /p:Exclude=[xunit.*]*
     done
 }
-pack(){
+publish(){
     local projectPath=$1
     local output=$2
     local config=$3
     print "Starting packing $projectPath $config into $output."
-    dotnet pack "$projectPath" --configuration "$config" --output "$output" --no-build
+    dotnet publish "$projectPath" --configuration "$config" --output "$output" 
 }
 usage(){
     print 'Usage:'
@@ -38,7 +38,7 @@ usage(){
     print './build.sh build [Release|Debug] | Restore packages and build the solution'
     print './build.sh run | Runs the Web project'
     print './build.sh test [Release|Debug] | Run all tests in the solution'
-    print './build.sh pack outputDirectory [Release|Debug] | Package the Web project into the output directory'
+    print './build.sh publish outputDirectory [Release|Debug] | Package the Web project into the output directory'
     print './build.sh all outputDirectory [Release|Debug] | Execute build, test, pack'
     print './build.sh help | Show this screen'
     print ''
@@ -65,10 +65,10 @@ case ${target} in
             configuration=${2:-Release}
             run_tests $solutionPath $configuration
         ;;
-    'pack')
+    'publish')
             outputDirectory=${2:-'../../output'}
             configuration=${3:-Release}
-            pack $webProjectPath $outputDirectory $configuration
+            publish $webProjectPath $outputDirectory $configuration
         ;;
 
     'help')
