@@ -1,0 +1,308 @@
+{
+    "id": "signalController1",
+    "detectors": [
+        {
+            "id": "signalPlanDemand1",
+            "type": "detectors.SignalPlanDemand"
+        },
+        {
+            "id": "signalPlanDemand2",
+            "type": "detectors.SignalPlanDemand"
+        },
+        {
+            "id": "signalPlanDemand3",
+            "type": "detectors.SignalPlanDemand"
+        },
+        {
+            "id": "signalPlanDemand4",
+            "type": "detectors.SignalPlanDemand"
+        },
+        {
+            "id": "signalPlanDemand5",
+            "type": "detectors.SignalPlanDemand"
+        },
+        {
+            "id": "latchingPushButton1",
+            "type": "detectors.uk.pedestrian.LatchingPushButton"
+        },
+        {
+            "id": "latchingPushButton2",
+            "type": "detectors.uk.pedestrian.LatchingPushButton"
+        },
+        {
+            "id": "latchingPushButton3",
+            "type": "detectors.uk.pedestrian.LatchingPushButton"
+        },
+        {
+            "id": "latchingPushButton4",
+            "type": "detectors.uk.pedestrian.LatchingPushButton"
+        }
+    ],
+    "phases": [
+        {
+            "id": "A",
+            "type": "signals.uk.vehicular.ThreeAspectSignal",
+            "associatedPhase": null,
+            "minimumGreen": 5,
+            "maximumGreen": 30,
+            "demandDetectors": [
+                "signalPlanDemand1"
+            ],
+            "demandNegationDetectors": [
+
+            ],
+            "detectorsToResetOnGreen": [
+
+            ],
+            "detectorsToResetOnRed": [
+
+            ],
+            "intergreens": [
+                {
+                    "toPhase": "D",
+                    "minimum": 3,
+                    "maximum": 3
+                },
+                {
+                    "toPhase": "E",
+                    "minimum": 5,
+                    "maximum": 5
+                }
+            ]
+        },
+        {
+            "id": "B",
+            "type": "signals.uk.vehicular.ThreeAspectSignal",
+            "associatedPhase": null,
+            "minimumGreen": 5,
+            "maximumGreen": 30,
+            "demandDetectors": [
+                "signalPlanDemand2"
+            ],
+            "demandNegationDetectors": [
+
+            ],
+            "detectorsToResetOnGreen": [
+                
+            ],
+            "detectorsToResetOnRed": [
+
+            ],
+            "intergreens": [
+                {
+                    "toPhase": "C",
+                    "minimum": 3,
+                    "maximum": 3
+                },
+                {
+                    "toPhase": "D",
+                    "minimum": 3,
+                    "maximum": 3
+                },
+                {
+                    "toPhase": "E",
+                    "minimum": 5,
+                    "maximum": 5
+                }
+            ]
+        },
+        {
+            "id": "C",
+            "type": "signals.uk.pedestrian.TwoAspectSignal",
+            "associatedPhase": null,
+            "minimumGreen": 10,
+            "maximumGreen": 10,
+            "demandDetectors": [
+                "signalPlanDemand3",
+                "latchingPushButton1",
+                "latchingPushButton2"
+            ],
+            "demandNegationDetectors": [
+
+            ],
+            "detectorsToResetOnGreen": [
+                "latchingPushButton1",
+                "latchingPushButton2"
+            ],
+            "detectorsToResetOnRed": [
+
+            ],
+            "intergreens": [
+                {
+                    "toPhase": "B",
+                    "minimum": 8,
+                    "maximum": 16
+                },
+                {
+                    "toPhase": "E",
+                    "minimum": 5,
+                    "maximum": 5
+                }
+            ]
+        },
+        {
+            "id": "D",
+            "type": "signals.uk.pedestrian.TwoAspectSignal",
+            "associatedPhase": null,
+            "minimumGreen": 10,
+            "maximumGreen": 10,
+            "demandDetectors": [
+                "signalPlanDemand4",
+                "latchingPushButton3",
+                "latchingPushButton4"
+            ],
+            "demandNegationDetectors": [
+
+            ],
+            "detectorsToResetOnGreen": [
+                "latchingPushButton3",
+                "latchingPushButton4"
+            ],
+            "detectorsToResetOnRed": [
+
+            ],
+            "intergreens": [
+                {
+                    "toPhase": "A",
+                    "minimum": 9,
+                    "maximum": 16
+                },
+                {
+                    "toPhase": "B",
+                    "minimum": 9,
+                    "maximum": 16
+                },
+                {
+                    "toPhase": "E",
+                    "minimum": 5,
+                    "maximum": 5
+                }
+            ]
+        },
+        {
+            "id": "E",
+            "type": "signals.uk.Dummy",
+            "associatedPhase": null,
+            "minimumGreen": 10,
+            "maximumGreen": 200,
+            "demandDetectors": [
+                "signalPlanDemand5"
+            ],
+            "demandNegationDetectors": [
+
+            ],
+            "detectorsToResetOnGreen": [
+                "latchingPushButton1",
+                "latchingPushButton2",
+                "latchingPushButton3",
+                "latchingPushButton4"
+            ],
+            "detectorsToResetOnRed": [
+
+            ],
+            "intergreens": [
+                {
+                    "toPhase": "A",
+                    "minimum": 5,
+                    "maximum": 5
+                },
+                {
+                    "toPhase": "B",
+                    "minimum": 5,
+                    "maximum": 5
+                },
+                {
+                    "toPhase": "C",
+                    "minimum": 5,
+                    "maximum": 5
+                },
+                {
+                    "toPhase": "D",
+                    "minimum": 5,
+                    "maximum": 5
+                }
+            ]
+        }
+    ],
+    "stages": [
+        {
+            "id": "stage0",
+            "phases": [
+                "E"
+            ],
+            "prohibitedMoves": [
+
+            ],
+            "alternativeMoves": [
+
+            ],
+            "phaseDelays": [
+
+            ]
+        },
+        {
+            "id": "stage1",
+            "phases": [
+                "A",
+                "B"
+            ],
+            "prohibitedMoves": [
+
+            ],
+            "alternativeMoves": [
+
+            ],
+            "phaseDelays": [
+
+            ]
+        },        
+        {
+            "id": "stage2",
+            "phases": [
+                "C",
+                "D"
+            ],
+            "prohibitedMoves": [
+
+            ],
+            "alternativeMoves": [
+
+            ],
+            "phaseDelays": [
+                {
+                    "toStage": "stage1",
+                    "phase": "C",
+                    "value": 1
+                }
+            ]
+        }
+    ],
+    "signalPlans": [
+        {
+            "id": "phaseBasedFixedTimeSignalPlan1",
+            "type": "signalplans.PhaseBasedFixedTimeSignalPlan",
+            "code": [
+                "setPeriod(38)",
+                "atTime(0, [set(signalPlanDemand1), set(signalPlanDemand2), negate(signalPlanDemand3), negate(signalPlanDemand4)])",
+                "atTime(16, [assert(isGreen(A)), assert(isGreen(B))])",
+                "atTime(26, [set(signalPlanDemand3), set(signalPlanDemand4), negate(signalPlanDemand1), negate(signalPlanDemand2)])",
+                "atTime(29, [assert(isGreen(C)), assert(isGreen(D))])"
+            ],
+            "exceptionAction": [
+                "shutDown()"
+            ]
+
+        }
+    ],
+    "signalPlanSchedules": [
+        {
+            "id": "dayOfWeekSignalPlanScheduleEntry1",
+            "type": "signalplanschedules.DayOfWeekSignalPlanScheduleEntry",
+            "code": [
+                "applyToDayOfWeek([0, 1, 2, 3, 4, 5, 6])",
+                "atTime(0, [runPlan(phaseBasedFixedTimeSignalPlan1)]",
+                "atTime(43200, [shutDown()])"
+            ]
+        }
+    ]
+}
