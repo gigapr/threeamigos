@@ -59,12 +59,12 @@
             ],
             "intergreens": [
                 {
-                    "toPhase": "D",
-                    "minimum": 3,
-                    "maximum": 3
+                    "fromPhase": "D",
+                    "minimum": 9,
+                    "maximum": 16
                 },
                 {
-                    "toPhase": "E",
+                    "fromPhase": "E",
                     "minimum": 5,
                     "maximum": 5
                 }
@@ -90,17 +90,17 @@
             ],
             "intergreens": [
                 {
-                    "toPhase": "C",
-                    "minimum": 3,
-                    "maximum": 3
+                    "fromPhase": "C",
+                    "minimum": 8,
+                    "maximum": 15
                 },
                 {
-                    "toPhase": "D",
-                    "minimum": 3,
-                    "maximum": 3
+                    "fromPhase": "D",
+                    "minimum": 9,
+                    "maximum": 16
                 },
                 {
-                    "toPhase": "E",
+                    "fromPhase": "E",
                     "minimum": 5,
                     "maximum": 5
                 }
@@ -129,12 +129,12 @@
             ],
             "intergreens": [
                 {
-                    "toPhase": "B",
-                    "minimum": 8,
-                    "maximum": 16
+                    "fromPhase": "B",
+                    "minimum": 3,
+                    "maximum": 3
                 },
                 {
-                    "toPhase": "E",
+                    "fromPhase": "E",
                     "minimum": 5,
                     "maximum": 5
                 }
@@ -163,17 +163,17 @@
             ],
             "intergreens": [
                 {
-                    "toPhase": "A",
-                    "minimum": 9,
-                    "maximum": 16
+                    "fromPhase": "A",
+                    "minimum": 3,
+                    "maximum": 3
                 },
                 {
-                    "toPhase": "B",
-                    "minimum": 9,
-                    "maximum": 16
+                    "fromPhase": "B",
+                    "minimum": 3,
+                    "maximum": 3
                 },
                 {
-                    "toPhase": "E",
+                    "fromPhase": "E",
                     "minimum": 5,
                     "maximum": 5
                 }
@@ -202,22 +202,22 @@
             ],
             "intergreens": [
                 {
-                    "toPhase": "A",
+                    "fromPhase": "A",
                     "minimum": 5,
                     "maximum": 5
                 },
                 {
-                    "toPhase": "B",
+                    "fromPhase": "B",
                     "minimum": 5,
                     "maximum": 5
                 },
                 {
-                    "toPhase": "C",
+                    "fromPhase": "C",
                     "minimum": 5,
                     "maximum": 5
                 },
                 {
-                    "toPhase": "D",
+                    "fromPhase": "D",
                     "minimum": 5,
                     "maximum": 5
                 }
