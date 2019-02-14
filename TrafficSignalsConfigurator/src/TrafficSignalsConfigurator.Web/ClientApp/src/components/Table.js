@@ -1,7 +1,7 @@
 import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { actionCreators } from '../store/Table';
+import { addRow,  removeRow, removeSpecificRow, change } from "../actions/table";
 
 const Table = props => (
     <div>
@@ -10,8 +10,7 @@ const Table = props => (
         <div className="col-md-12 column">
           <table
             className="table table-bordered table-hover"
-            id="tab_logic"
-          >
+            id="tab_logic">
             <thead>
               <tr>
                 <th className="text-center"> # </th>
@@ -29,7 +28,7 @@ const Table = props => (
                       type="text"
                       name="name"
                       value={props.rows[idx].name}
-                      onChange={(e) => props.change(idx, e)}
+                      onChange={(e) => props.change(idx, e.target)}
                       className="form-control"
                     />
                   </td>
@@ -38,15 +37,14 @@ const Table = props => (
                       type="text"
                       name="mobile"
                       value={props.rows[idx].mobile}
-                      onChange={(e) => props.change(idx, e)}
+                      onChange={(e) => props.change(idx, e.target)}
                       className="form-control"
                     />
                   </td>
                   <td>
                     <button
                       className="btn btn-outline-danger btn-sm"
-                      onClick={() => props.removeSpecificRow(idx)}
-                    >
+                      onClick={() => props.removeSpecificRow(idx)}>
                       Remove
                     </button>
                   </td>
@@ -59,8 +57,7 @@ const Table = props => (
           </button>
           <button
             onClick={props.removeRow}
-            className="btn btn-danger float-right"
-          >
+            className="btn btn-danger float-right">
             Delete Last Row
           </button>
         </div>
@@ -69,7 +66,19 @@ const Table = props => (
   </div>
 );
 
-export default connect(
-  state => state.table,
-  dispatch => bindActionCreators(actionCreators, dispatch)
-)(Table);
+const mapStateToProps = state => {
+  return {
+    rows: state.table.rows
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    addRow: () => dispatch(addRow()),
+    removeRow: () => dispatch(removeRow()),
+    removeSpecificRow: (idx) => dispatch(removeSpecificRow(idx)),
+    change: (idx, e) => dispatch(change(idx, e)),
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Table);
