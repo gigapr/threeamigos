@@ -24,6 +24,11 @@ export default props => (
             <Glyphicon glyph='education' /> Counter
           </NavItem>
         </LinkContainer>
+        <LinkContainer to={'/table'}>
+          <NavItem>
+            <Glyphicon glyph='education' /> Table
+          </NavItem>
+        </LinkContainer>
         <LinkContainer to={'/fetchdata'}>
           <NavItem>
             <Glyphicon glyph='th-list' /> Fetch data
