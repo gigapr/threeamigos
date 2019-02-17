@@ -3,6 +3,10 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { addRow,  removeRow, removeSpecificRow, change } from "../actions/table";
 
+const inputStyle = {
+  width: '2em'
+};
+
 const Table = props => (
     <div>
     <div className="container">
@@ -63,12 +67,29 @@ const Table = props => (
         </div>
       </div>
     </div>
+    <table>
+      <br></br>
+    <tbody>
+        {
+          props.phasesConflicts.map((item, idx) => (
+            <tr>
+              {item.map((inner, innerIndex) => (
+              <td>
+                <input style={inputStyle} value={item[innerIndex]}
+                />
+              </td>
+              ))}
+            </tr>
+        ))}
+      </tbody>
+    </table>
   </div>
 );
 
 const mapStateToProps = state => {
   return {
-    rows: state.table.rows
+    rows: state.table.rows,
+    phasesConflicts: state.table.phasesConflicts
   };
 };
 

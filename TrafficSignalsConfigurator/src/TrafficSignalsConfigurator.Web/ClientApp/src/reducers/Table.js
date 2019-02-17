@@ -1,7 +1,8 @@
 import { CHANGE, REMOVE_ROW, ADD_ROW, REMOVE_SPECIFIC_ROW } from "../actions/table";
 
 const initialState = {
-    rows: [{}]
+    rows: [{}],
+    phasesConflicts:[]
 };
 
 export const reducer = (state, action) => {
@@ -17,12 +18,37 @@ export const reducer = (state, action) => {
       return { ...state, rows };
     }
     if (action.type === ADD_ROW) {
+      
       const item = {
           name: "",
           mobile: ""
-        };
-  
-      return { ...state, rows: [...state.rows, item] };
+      };
+      
+      const rows = [...state.rows, item];
+      
+      const phasesConflict = [];
+    
+      for(var i = 0; i< rows.length; i++){
+        var ar = [];
+        for(var l = 0; l< rows.length; l++){
+            ar.push('');
+        }
+        phasesConflict.push(ar);
+      }
+
+      var count = 0;
+      for(var i = 0; i< phasesConflict.length; i++){
+        for(var l = 0; l< rows.length; l++){
+          if(l == count){
+            var m =phasesConflict[i];
+            m[l] = '-';
+            count++;
+            break;
+          }
+        }
+      }
+
+      return { ...state, rows: rows, phasesConflicts: phasesConflict };
     }
   
     if (action.type === REMOVE_ROW) {
@@ -35,7 +61,8 @@ export const reducer = (state, action) => {
       const rows = [...state.rows];
       rows.splice(action.index, 1);
   
-      return { ...state, 
+      return { 
+          ...state, 
           rows: rows
       };
     }
