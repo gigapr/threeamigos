@@ -4,13 +4,13 @@ import Layout from './components/Layout';
 import Home from './components/Home';
 import Counter from './components/Counter';
 import FetchData from './components/FetchData';
-import Table from './components/Table';
+import PhasesTable from './components/PhasesTable';
 
 export default () => (
   <Layout>
     <Route exact path='/' component={Home} />
     <Route path='/counter' component={Counter} />
     <Route path='/fetchdata/:startDateIndex?' component={FetchData} />
-    <Route path='/table' component={Table} />
+    <Route path='/phasesTable' component={PhasesTable} />
   </Layout>
 );

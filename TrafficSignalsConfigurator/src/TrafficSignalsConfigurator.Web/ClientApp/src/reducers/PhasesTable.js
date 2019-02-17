@@ -1,4 +1,4 @@
-import { CHANGE, REMOVE_ROW, ADD_ROW, REMOVE_SPECIFIC_ROW } from "../actions/table";
+import { CHANGE, REMOVE_ROW, ADD_ROW, REMOVE_SPECIFIC_ROW } from "../actions/phasesTable";
 
 const initialState = {
     rows: [{}],
@@ -20,8 +20,9 @@ export const reducer = (state, action) => {
     if (action.type === ADD_ROW) {
       
       const item = {
-          name: "",
-          mobile: ""
+          id: "",
+          type: "",
+          minimumGreen: ""
       };
       
       const rows = [...state.rows, item];
@@ -41,7 +42,7 @@ export const reducer = (state, action) => {
         for(var l = 0; l< rows.length; l++){
           if(l == count){
             var m =phasesConflict[i];
-            m[l] = '-';
+            m[l] = 'X';
             count++;
             break;
           }
@@ -60,12 +61,12 @@ export const reducer = (state, action) => {
     if(action.type === REMOVE_SPECIFIC_ROW){
       const rows = [...state.rows];
       rows.splice(action.index, 1);
-  
+
       return { 
           ...state, 
           rows: rows
       };
     }
-  
+
     return state;
   };
