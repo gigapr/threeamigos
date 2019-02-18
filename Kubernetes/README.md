@@ -1,7 +1,9 @@
-To run the application in Minikube
+## How to run in Minikube
 
-`kubectl create -f ./threeamigos-namespace.yaml`
+- Install Istio in Kubernetes
 
-`kubectl --namespace=threeamigos apply -f ./MongoDb/minikube_hostpath.yaml`
+- `kubectl create -f ./threeamigos-namespace.yaml istio-injection=enabled`
 
-`kubectl --namespace=threeamigos kubectl apply -f ./MongoDb/mongo-statefulset.yaml`
+- `kubectl --namespace=threeamigos apply -f ./MongoDb/minikube_hostpath.yaml`
+
+- `kubectl --namespace=threeamigos apply -f ./MongoDb/mongo-statefulset.yaml`
