@@ -7,7 +7,7 @@ namespace TrafficSignalsConfigurator.Persistence
     public interface IUserRepository
     {
         Task<bool> IsEmailUnique(string email) ;
-        Task<bool>  IsUsernameUniqueAsync (string username);
+        Task<bool>  IsUsernameUnique (string username);
         User Get(Expression<Func<User, bool>> predicate);
         User Add(User user);
         void Update(string id, User user);

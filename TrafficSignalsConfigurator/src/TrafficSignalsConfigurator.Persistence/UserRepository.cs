@@ -3,21 +3,27 @@ using System.Linq.Expressions;
 using MongoDB.Driver;
 using Microsoft.Extensions.Configuration;
 using System.Threading.Tasks;
+using System.Linq;
+using System.Collections.Generic;
+using System.Reflection;
 
 namespace TrafficSignalsConfigurator.Persistence
 {
     public class UserRepository : IUserRepository
     {
+        private const string CollectionName = "Users";
+        private IMongoDatabase _database;
         private IMongoCollection<User> _users;
 
         public UserRepository(string databaseName, string connectionstring)
-        {            
+        {
             var client = new MongoClient(connectionstring);
-            
-            var database = client.GetDatabase(databaseName);
-            
-            _users = database.GetCollection<User>("Users");
+
+            _database = client.GetDatabase(databaseName);
+        
+            _users = GetCollection();
         }
+
         public async Task<bool> IsEmailUnique(string email) 
         {
             var result = await _users.FindAsync(u => u.Email == email);
@@ -25,7 +31,7 @@ namespace TrafficSignalsConfigurator.Persistence
             return result.Current == null;
         }
 
-        public async Task<bool> IsUsernameUniqueAsync(string username) 
+        public async Task<bool> IsUsernameUnique(string username) 
         {
             var result = await _users.FindAsync(u => u.Username == username);
             
@@ -57,6 +63,18 @@ namespace TrafficSignalsConfigurator.Persistence
         public void Remove(string id)
         {
             _users.DeleteOne(u => u.Id == id);
+        }
+
+        private IMongoCollection<User> GetCollection()
+        {
+            var users = _database.GetCollection<User>(CollectionName);
+
+            if (_users == null)
+            {
+                _database.CreateCollection(CollectionName);
+            }
+
+            return _database.GetCollection<User>(CollectionName);;
         }
     }
 }

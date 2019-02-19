@@ -10,13 +10,13 @@ namespace TrafficSignalsConfigurator.Web.Controllers
     [ApiController]
     public class AuthController: ControllerBase
     {
-        private readonly IAuthService authService;
-        private readonly IUserRepository userRepository;
+        private readonly IAuthService _authService;
+        private readonly IUserRepository _userRepository;
         
         public AuthController(IAuthService authService, IUserRepository userRepository)
         {
-            this.authService = authService;
-            this.userRepository = userRepository;
+            _authService = authService;
+            _userRepository = userRepository;
         }
 
         [HttpPost("login")]
@@ -24,18 +24,19 @@ namespace TrafficSignalsConfigurator.Web.Controllers
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
 
-            var user = userRepository.Get(u => u.Email == model.Username);
-
-            if (user == null) {
+            var user = _userRepository.Get(u => u.Email == model.Username);
+            if (user == null) 
+            {
                 return BadRequest(new { email = "no user with this email" });
             }
 
-            var passwordValid = authService.VerifyPassword(model.Password, user.Password);
-            if (!passwordValid) {
+            var passwordValid = _authService.VerifyPassword(model.Password, user.Password);
+            if (!passwordValid) 
+            {
                 return BadRequest(new { password = "invalid password" });
             }
 
-            return authService.GetAuthData(user.Id);
+            return _authService.GetAuthData(user.Id);
         }
 
         [HttpPost("register")]
@@ -43,30 +44,31 @@ namespace TrafficSignalsConfigurator.Web.Controllers
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
 
-            var emailUniq = await userRepository.IsEmailUnique(model.Email);
-            if(!emailUniq)
+            var emailUnique = await _userRepository.IsEmailUnique(model.Email);
+            if(!emailUnique)
             {
                 return BadRequest(new { email = "user with this email already exists" });
             }
 
-            var usernameUniq = await userRepository.IsUsernameUniqueAsync(model.Username);
-            if (!usernameUniq) 
+            var usernameUnique = await _userRepository.IsUsernameUnique(model.Username);
+            if (!usernameUnique) 
             {
                 return BadRequest(new { username = "user with this email already exists" });
             }
 
             var id = Guid.NewGuid().ToString();
+            
             var user = new User
             {
                 Id = id,
                 Username = model.Username,
                 Email = model.Email,
-                Password = authService.HashPassword(model.Password)
+                Password = _authService.HashPassword(model.Password)
             };
             
-            userRepository.Add(user);
+            _userRepository.Add(user);
 
-            return authService.GetAuthData(id);
+            return _authService.GetAuthData(id);
         }
 
     }

@@ -17,6 +17,12 @@ To display all available commands
 ./build.sh help
 ```
 
+To run the application
+
+```
+./build.sh run
+```
+
 
 To run the application within a Docker container
 

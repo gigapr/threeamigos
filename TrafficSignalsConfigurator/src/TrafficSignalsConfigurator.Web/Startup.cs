@@ -56,7 +56,10 @@ namespace TrafficSignalsConfigurator.Web
                         };
                     });
             
-            services.AddScoped<IUserRepository, UserRepository>((s) => new UserRepository("TrafficSignalsConfiguratorDb", Configuration.GetConnectionString("TrafficSignalsConfiguratorDb")));
+            const string databaseName = "TrafficSignalsConfiguratorDb";
+            string connectionstring = Configuration.GetConnectionString("TrafficSignalsConfiguratorDb");
+            
+            services.AddScoped<IUserRepository, UserRepository>((s) => new UserRepository(databaseName, connectionstring));
 
             services.AddSingleton<IAuthService>(new AuthService(Configuration.GetValue<string>("JWTSecretKey"), Configuration.GetValue<int>("JWTLifespan")));
 

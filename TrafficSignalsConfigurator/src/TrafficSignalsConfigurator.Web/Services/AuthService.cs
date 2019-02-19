@@ -35,7 +35,8 @@ namespace TrafficSignalsConfigurator.Web.ViewModels
             var tokenHandler = new JwtSecurityTokenHandler();
             var token = tokenHandler.WriteToken(tokenHandler.CreateToken(tokenDescriptor));
                         
-            return new AuthDataViewModel{
+            return new AuthDataViewModel
+            {
                 Token = token,
                 TokenExpirationTime = ((DateTimeOffset)expirationTime).ToUnixTimeSeconds(),
                 Id = id
