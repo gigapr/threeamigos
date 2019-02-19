@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TrafficSignalsConfigurator.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TrafficSignalsConfigurator.Web.Unit.Tests", "TrafficSignalsConfigurator.Web.Unit.Tests\TrafficSignalsConfigurator.Web.Unit.Tests.csproj", "{1A00E96F-F59B-4228-8E7C-6704980988FC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TrafficSignalsConfigurator.Persistence", "TrafficSignalsConfigurator.Persistence\TrafficSignalsConfigurator.Persistence.csproj", "{7F789496-61E8-4D06-B247-DF4DB4388D2F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -44,5 +46,17 @@ Global
 		{1A00E96F-F59B-4228-8E7C-6704980988FC}.Release|x64.Build.0 = Release|Any CPU
 		{1A00E96F-F59B-4228-8E7C-6704980988FC}.Release|x86.ActiveCfg = Release|Any CPU
 		{1A00E96F-F59B-4228-8E7C-6704980988FC}.Release|x86.Build.0 = Release|Any CPU
+		{7F789496-61E8-4D06-B247-DF4DB4388D2F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7F789496-61E8-4D06-B247-DF4DB4388D2F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7F789496-61E8-4D06-B247-DF4DB4388D2F}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{7F789496-61E8-4D06-B247-DF4DB4388D2F}.Debug|x64.Build.0 = Debug|Any CPU
+		{7F789496-61E8-4D06-B247-DF4DB4388D2F}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{7F789496-61E8-4D06-B247-DF4DB4388D2F}.Debug|x86.Build.0 = Debug|Any CPU
+		{7F789496-61E8-4D06-B247-DF4DB4388D2F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7F789496-61E8-4D06-B247-DF4DB4388D2F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7F789496-61E8-4D06-B247-DF4DB4388D2F}.Release|x64.ActiveCfg = Release|Any CPU
+		{7F789496-61E8-4D06-B247-DF4DB4388D2F}.Release|x64.Build.0 = Release|Any CPU
+		{7F789496-61E8-4D06-B247-DF4DB4388D2F}.Release|x86.ActiveCfg = Release|Any CPU
+		{7F789496-61E8-4D06-B247-DF4DB4388D2F}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
