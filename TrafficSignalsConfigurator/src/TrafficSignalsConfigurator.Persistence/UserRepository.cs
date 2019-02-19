@@ -69,12 +69,14 @@ namespace TrafficSignalsConfigurator.Persistence
         {
             var users = _database.GetCollection<User>(CollectionName);
 
-            if (_users == null)
+            if (users == null)
             {
                 _database.CreateCollection(CollectionName);
+                
+                users = _database.GetCollection<User>(CollectionName);
             }
 
-            return _database.GetCollection<User>(CollectionName);;
+            return users;
         }
     }
 }

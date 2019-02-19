@@ -1,40 +1,57 @@
-﻿import React from 'react';
-import { Link } from 'react-router-dom';
-import { Glyphicon, Nav, Navbar, NavItem } from 'react-bootstrap';
+﻿import { Link } from 'react-router-dom';
+import { Glyphicon, Nav, NavItem } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 import './NavMenu.css';
 
-export default props => (
-  <Navbar inverse fixedTop fluid collapseOnSelect>
-    <Navbar.Header>
-      <Navbar.Brand>
-        <Link to={'/'}>TrafficSignalsConfigurator.Web</Link>
-      </Navbar.Brand>
-      <Navbar.Toggle />
-    </Navbar.Header>
-    <Navbar.Collapse>
-      <Nav>
-        <LinkContainer to={'/'} exact>
-          <NavItem>
-            <Glyphicon glyph='home' /> Home
-          </NavItem>
-        </LinkContainer>
-        <LinkContainer to={'/counter'}>
-          <NavItem>
-            <Glyphicon glyph='education' /> Counter
-          </NavItem>
-        </LinkContainer>
-        <LinkContainer to={'/phasesTable'}>
-          <NavItem>
-            <Glyphicon glyph='education' /> Phases Table
-          </NavItem>
-        </LinkContainer>
-        <LinkContainer to={'/fetchdata'}>
-          <NavItem>
-            <Glyphicon glyph='th-list' /> Fetch data
-          </NavItem>
-        </LinkContainer>
-      </Nav>
-    </Navbar.Collapse>
-  </Navbar>
-);
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { logoutUser } from '../actions/authentication';
+import { withRouter } from 'react-router-dom';
+
+class Navbar extends Component {
+
+    onLogout(e) {
+        e.preventDefault();
+        this.props.logoutUser(this.props.history);
+    }
+
+    render() {
+        const {isAuthenticated, user} = this.props.auth;
+        const authLinks = (
+            <div>
+                <a href="#" className="nav-link" onClick={this.onLogout.bind(this)}>
+                    {user.name} Logout
+                </a>
+                <Link to={'/'}>Home</Link>
+                <Link to={'/counter'}>Counter</Link> 
+                <Link to={'/phasesTable'}>Phases Table</Link>
+                <Link to={'/fetchdata'}>Fetch data</Link>
+                <Link to={'/login'}>Login</Link>
+                <Link to={'/register'}>Register</Link>
+            </div>
+        )
+      const guestLinks = (
+            <div>
+                <Link className="nav-link" to="/register">Sign Up</Link>
+                <br/>
+                <Link className="nav-link" to="/login">Sign In</Link>
+            </div>
+      )
+        return(
+            <div>
+                {isAuthenticated ? authLinks : guestLinks}
+            </div>
+        )
+    }
+}
+Navbar.propTypes = {
+    logoutUser: PropTypes.func.isRequired,
+    auth: PropTypes.object.isRequired
+}
+
+const mapStateToProps = (state) => ({
+    auth: state.auth
+})
+
+export default connect(mapStateToProps, { logoutUser })(withRouter(Navbar));

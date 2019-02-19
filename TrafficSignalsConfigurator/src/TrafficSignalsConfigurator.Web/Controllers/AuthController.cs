@@ -24,7 +24,7 @@ namespace TrafficSignalsConfigurator.Web.Controllers
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
 
-            var user = _userRepository.Get(u => u.Email == model.Username);
+            var user = _userRepository.Get(u => u.Email == model.Email);
             if (user == null) 
             {
                 return BadRequest(new { email = "no user with this email" });

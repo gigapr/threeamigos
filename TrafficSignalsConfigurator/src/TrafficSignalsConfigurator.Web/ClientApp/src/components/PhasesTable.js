@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { addRow, removeRow, removeSpecificRow, change } from "../actions/phasesTable";
 import TableTextfield from "./TableTextfield";
-import PhasesConflictsTable from "./PhasesConflictsTable";
+import PhasesConflictsTable from "./phasesConflictsTable";
 
 const PhasesTable = props => (
   <div>
