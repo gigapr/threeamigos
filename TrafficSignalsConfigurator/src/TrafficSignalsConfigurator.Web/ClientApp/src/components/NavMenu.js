@@ -1,8 +1,4 @@
 ﻿import { Link } from 'react-router-dom';
-import { Glyphicon, Nav, NavItem } from 'react-bootstrap';
-import { LinkContainer } from 'react-router-bootstrap';
-import './NavMenu.css';
-
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -20,7 +16,7 @@ class Navbar extends Component {
         const {isAuthenticated, user} = this.props.auth;
         const authLinks = (
             <div>
-                <a href="#" className="nav-link" onClick={this.onLogout.bind(this)}>
+                <a href="/" className="nav-link" onClick={this.onLogout.bind(this)}>
                     {user.name} Logout
                 </a>
                 <Link to={'/'}>Home</Link>

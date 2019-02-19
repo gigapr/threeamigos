@@ -2,8 +2,8 @@
 import { Route } from 'react-router';
 import Layout from './components/layout';
 import Home from './components/home';
-import Counter from './components/Counter';
-import FetchData from './components/FetchData';
+import Counter from './components/counter';
+import FetchData from './components/fetchData';
 import PhasesTable from './components/phasesTable';
 import Login from './components/login'
 import Register from './components/register'
@@ -18,13 +18,12 @@ if(localStorage.jwtToken) {
   const decoded = jwt_decode(localStorage.jwtToken);
   store().dispatch(setCurrentUser(decoded));
 
-  const currentTime = Date.now() / 1000;
+  const currentTime = Date.UTC() / 1000;
   if(decoded.exp < currentTime) {
     store().dispatch(logoutUser());
     window.location.href = '/login'
   }
 }
-
 
 export default () => (
   <Layout>
