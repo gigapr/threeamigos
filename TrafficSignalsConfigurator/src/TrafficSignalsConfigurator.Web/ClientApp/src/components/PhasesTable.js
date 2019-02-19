@@ -65,8 +65,8 @@ const mapDispatchToProps = dispatch => {
     addRow: () => dispatch(addRow()),
     removeRow: () => dispatch(removeRow()),
     removeSpecificRow: (idx) => dispatch(removeSpecificRow(idx)),
-    change: (idx, e) => dispatch(change(idx, e)),
-  }
-}
+    change: (idx, e) => dispatch(change(idx, e))
+  };
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(PhasesTable);

@@ -16,20 +16,20 @@ const change = (index, element) => ({
     type: CHANGE,
     index: index, 
     element: element
-})
+});
 
 const removeRow = () => ({
     type: REMOVE_ROW
-})
+});
 
 const addRow = () => ({
     type: ADD_ROW
-})
+});
 
 const removeSpecificRow = (index) => ({
     type: REMOVE_SPECIFIC_ROW,
     index: index
-})
+});
 
 export { change, removeRow, addRow, removeSpecificRow };
 
