@@ -10,7 +10,7 @@ class Register extends Component {
     constructor() {
         super();
         this.state = {
-            name: '',
+            username: '',
             email: '',
             password: '',
             password_confirm: '',
@@ -29,7 +29,7 @@ class Register extends Component {
     handleSubmit(e) {
         e.preventDefault();
         const user = {
-            name: this.state.name,
+            username: this.state.username,
             email: this.state.email,
             password: this.state.password,
             password_confirm: this.state.password_confirm
@@ -57,21 +57,21 @@ class Register extends Component {
     render() {
         const { errors } = this.state;
         return(
-        <div className="container" style={{ marginTop: '50px', width: '700px'}}>
+        <div>
             <h2 style={{marginBottom: '40px'}}>Registration</h2>
             <form onSubmit={ this.handleSubmit }>
                 <div className="form-group">
                     <input
                     type="text"
-                    placeholder="Name"
+                    placeholder="Username"
                     className={classnames('form-control form-control-lg', {
-                        'is-invalid': errors.name
+                        'is-invalid': errors.username
                     })}
-                    name="name"
+                    name="username"
                     onChange={ this.handleInputChange }
-                    value={ this.state.name }
+                    value={ this.state.username }
                     />
-                    {errors.name && (<div className="invalid-feedback">{errors.name}</div>)}
+                    {errors.username && (<div className="form-text text-muted">{errors.username}</div>)}
                 </div>
                 <div className="form-group">
                     <input
@@ -84,7 +84,7 @@ class Register extends Component {
                     onChange={ this.handleInputChange }
                     value={ this.state.email }
                     />
-                    {errors.email && (<div className="invalid-feedback">{errors.email}</div>)}
+                    {errors.email && (<div className="form-text text-muted">{errors.email}</div>)}
                 </div>
                 <div className="form-group">
                     <input
@@ -97,7 +97,7 @@ class Register extends Component {
                     onChange={ this.handleInputChange }
                     value={ this.state.password }
                     />
-                    {errors.password && (<div className="invalid-feedback">{errors.password}</div>)}
+                    {errors.password && (<div className="form-text text-muted">{errors.password}</div>)}
                 </div>
                 <div className="form-group">
                     <input
@@ -110,7 +110,7 @@ class Register extends Component {
                     onChange={ this.handleInputChange }
                     value={ this.state.password_confirm }
                     />
-                    {errors.password_confirm && (<div className="invalid-feedback">{errors.password_confirm}</div>)}
+                    {errors.password_confirm && (<div className="form-text text-muted">{errors.password_confirm}</div>)}
                 </div>
                 <div className="form-group">
                     <button type="submit" className="btn btn-primary">
@@ -130,7 +130,7 @@ Register.propTypes = {
 
 const mapStateToProps = state => ({
     auth: state.auth,
-    errors: state.errors
+    errors: state.auth.errors
 });
 
 export default connect(mapStateToProps,{ registerUser })(withRouter(Register))

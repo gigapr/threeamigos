@@ -1,5 +1,4 @@
-﻿import { Link } from 'react-router-dom';
-import React, { Component } from 'react';
+﻿import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { logoutUser } from '../actions/authentication';
@@ -13,31 +12,38 @@ class Navbar extends Component {
     }
 
     render() {
-        const {isAuthenticated, user} = this.props.auth;
-        const authLinks = (
-            <div>
-                <a href="/" className="nav-link" onClick={this.onLogout.bind(this)}>
-                    {user.name} Logout
-                </a>
-                <Link to={'/'}>Home</Link>
-                <Link to={'/counter'}>Counter</Link> 
-                <Link to={'/phasesTable'}>Phases Table</Link>
-                <Link to={'/fetchdata'}>Fetch data</Link>
-                <Link to={'/login'}>Login</Link>
-                <Link to={'/register'}>Register</Link>
-            </div>
+        const { isAuthenticated, user } = this.props.auth;
+        
+        const authLinks = (loggedInUser) => (
+            <ul className="nav navbar-nav navbar-right">
+                <li>
+                    <a href="/" onClick={this.onLogout.bind(this)}><span className="glyphicon glyphicon-user"></span> {loggedInUser.username} Logout</a>
+                </li>
+            </ul>
+
         )
-      const guestLinks = (
-            <div>
-                <Link className="nav-link" to="/register">Sign Up</Link>
-                <br/>
-                <Link className="nav-link" to="/login">Sign In</Link>
-            </div>
-      )
-        return(
-            <div>
-                {isAuthenticated ? authLinks : guestLinks}
-            </div>
+        const guestLinks = (
+            <ul className="nav navbar-nav navbar-right">
+                <li><a href="/register"><span className="glyphicon glyphicon-user"></span> Sign Up</a></li>
+                <li><a href="/login"><span className="glyphicon glyphicon-log-in"></span> Login</a></li>
+            </ul >
+        )
+
+        return (
+            <nav className="navbar navbar-inverse">
+                <div className="container-fluid">
+                    <div className="navbar-header">
+                        <a className="navbar-brand" href="/">Home</a>
+                    </div>
+                    <ul className="nav navbar-nav">
+                        <li><a href="/counter">Counter</a></li>
+                        <li><a href="/phasesTable">Phases Table</a></li>
+                        <li><a href="/fetchdata">Fetch data</a></li>
+                    </ul>
+
+                    {isAuthenticated ? authLinks(user) : guestLinks}
+                </div>
+            </nav>
         )
     }
 }

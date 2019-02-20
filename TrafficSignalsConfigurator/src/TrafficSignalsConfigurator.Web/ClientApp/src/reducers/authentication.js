@@ -1,4 +1,4 @@
-import { SET_CURRENT_USER, GET_ERRORS } from '../actions/authentication';
+import { SET_CURRENT_USER, AUTHENTCATION_ERRORS } from '../actions/authentication';
 import isEmpty from '../validation/is-empty';
 
 const initialState = {
@@ -18,8 +18,12 @@ export const reducer = (state, action) => {
                 isAuthenticated: !isEmpty(action.payload),
                 user: action.payload
             }
-        case GET_ERRORS:
-            return action.payload;
+        case AUTHENTCATION_ERRORS:
+            return {
+                ...state,
+                isAuthenticated: false,
+                errors: action.payload
+            }
         default:
             return state;
     }

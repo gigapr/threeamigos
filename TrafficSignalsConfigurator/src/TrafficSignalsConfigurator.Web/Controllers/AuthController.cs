@@ -27,13 +27,13 @@ namespace TrafficSignalsConfigurator.Web.Controllers
             var user = _userRepository.Get(u => u.Email == model.Email);
             if (user == null) 
             {
-                return BadRequest(new { email = "no user with this email" });
+                return BadRequest(new { loginError = "Invalid username password combination" });
             }
 
             var passwordValid = _authService.VerifyPassword(model.Password, user.Password);
             if (!passwordValid) 
             {
-                return BadRequest(new { password = "invalid password" });
+                return BadRequest(new { loginError = "Invalid username password combination" });
             }
 
             return _authService.GetAuthData(user.Id);
@@ -47,13 +47,13 @@ namespace TrafficSignalsConfigurator.Web.Controllers
             var emailUnique = await _userRepository.IsEmailUnique(model.Email);
             if(!emailUnique)
             {
-                return BadRequest(new { email = "user with this email already exists" });
+                return BadRequest(new { email = "User with this email already exists" });
             }
 
             var usernameUnique = await _userRepository.IsUsernameUnique(model.Username);
             if (!usernameUnique) 
             {
-                return BadRequest(new { username = "user with this email already exists" });
+                return BadRequest(new { username = "User with this username already exists" });
             }
 
             var id = Guid.NewGuid().ToString();

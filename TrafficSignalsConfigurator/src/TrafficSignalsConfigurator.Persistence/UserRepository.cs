@@ -26,16 +26,16 @@ namespace TrafficSignalsConfigurator.Persistence
 
         public async Task<bool> IsEmailUnique(string email) 
         {
-            var result = await _users.FindAsync(u => u.Email == email);
-
-            return result.Current == null;
-        }
+            var count = await _users.Find(u => u.Email == email).CountDocumentsAsync();
+            
+            return count == 0;
+        }   
 
         public async Task<bool> IsUsernameUnique(string username) 
         {
-            var result = await _users.FindAsync(u => u.Username == username);
+            var count = await _users.Find(u => u.Username == username).CountDocumentsAsync();
             
-            return result.Current == null;
+            return count == 0;
         }
 
         public User Get(Expression<Func<User, bool>> predicate)

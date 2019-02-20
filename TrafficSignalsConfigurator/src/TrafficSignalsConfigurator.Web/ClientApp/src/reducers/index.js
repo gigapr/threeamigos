@@ -6,14 +6,13 @@ import * as weatherForecasts from './weatherForecasts';
 import { routerReducer } from 'react-router-redux';
 
 const reducers = {
-    counter: counter.reducer,
-    weatherForecasts: weatherForecasts.reducer,
-    phasesTable: phasesTable.reducer,
-    auth: authentication.reducer
-  };
-
+  counter: counter.reducer,
+  weatherForecasts: weatherForecasts.reducer,
+  phasesTable: phasesTable.reducer,
+  auth: authentication.reducer
+};
 
 export default combineReducers({
-    ...reducers,
-    routing: routerReducer
-  });
+  ...reducers,
+  routing: routerReducer
+});

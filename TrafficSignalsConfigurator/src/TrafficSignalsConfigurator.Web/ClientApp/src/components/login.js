@@ -52,7 +52,7 @@ class Login extends Component {
     render() {
         const {errors} = this.state;
         return(
-        <div className="container" style={{ marginTop: '50px', width: '700px'}}>
+        <div>
             <h2 style={{marginBottom: '40px'}}>Login</h2>
             <form onSubmit={ this.handleSubmit }>
                 <div className="form-group">
@@ -66,7 +66,7 @@ class Login extends Component {
                     onChange={ this.handleInputChange }
                     value={ this.state.email }
                     />
-                    {errors.email && (<div className="invalid-feedback">{errors.email}</div>)}
+                    {errors.email && (<div className="form-text text-muted">{errors.email}</div>)}
                 </div>
                 <div className="form-group">
                     <input
@@ -79,13 +79,14 @@ class Login extends Component {
                     onChange={ this.handleInputChange }
                     value={ this.state.password }
                     />
-                    {errors.password && (<div className="invalid-feedback">{errors.password}</div>)}
+                    {errors.password && (<div className="form-text text-muted">{errors.password}</div>)}
                 </div>
                 <div className="form-group">
                     <button type="submit" className="btn btn-primary">
                         Login User
                     </button>
                 </div>
+                {errors.loginError && (<div className="form-text text-muted">{errors.loginError}</div>)}
             </form>
         </div>
         )
