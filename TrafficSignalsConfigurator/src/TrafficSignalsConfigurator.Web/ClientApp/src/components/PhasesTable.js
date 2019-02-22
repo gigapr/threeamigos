@@ -55,6 +55,7 @@ const PhasesTable = props => (
 
 const mapStateToProps = state => {
   return {
+    ...state,
     rows: state.phasesTable.rows,
     phasesConflicts: state.phasesTable.phasesConflicts
   };

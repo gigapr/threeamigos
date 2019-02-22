@@ -2,12 +2,10 @@
 import { Route } from 'react-router';
 import Layout from './components/layout';
 import Home from './components/home';
-import Counter from './components/counter';
-import FetchData from './components/fetchData';
 import PhasesTable from './components/phasesTable';
-import Login from './components/login'
-import Register from './components/register'
-import store from './store/configureStore'
+import Login from './components/login';
+import Register from './components/register';
+import store from './store/configureStore';
 
 import jwt_decode from 'jwt-decode';
 import setAuthToken from './setAuthToken';
@@ -18,7 +16,7 @@ if(localStorage.jwtToken) {
   const decoded = jwt_decode(localStorage.jwtToken);
   store().dispatch(setCurrentUser(decoded));
 
-  const currentTime = Date.UTC() / 1000;
+  const currentTime = new Date() / 1000;
   if(decoded.exp < currentTime) {
     store().dispatch(logoutUser());
     window.location.href = '/login'
@@ -28,8 +26,6 @@ if(localStorage.jwtToken) {
 export default () => (
   <Layout>
     <Route exact path='/' component={Home} />
-    <Route path='/counter' component={Counter} />
-    <Route path='/fetchdata/:startDateIndex?' component={FetchData} />
     <Route path='/login' component={Login} />
     <Route path='/register' component={Register} />
     <Route path='/phasesTable' component={PhasesTable} />

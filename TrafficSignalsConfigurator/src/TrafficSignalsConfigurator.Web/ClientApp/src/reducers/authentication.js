@@ -7,17 +7,16 @@ const initialState = {
     errors: {}
 }
 
-export const reducer = (state, action) => {
-
-    state = state || initialState;
+export const reducer = (state = initialState, action) => {
 
     switch (action.type) {
         case SET_CURRENT_USER:
-            return {
+            const newState = {
                 ...state,
                 isAuthenticated: !isEmpty(action.payload),
                 user: action.payload
-            }
+            };
+            return newState;
         case AUTHENTCATION_ERRORS:
             return {
                 ...state,

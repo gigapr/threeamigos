@@ -5,13 +5,12 @@ const initialState = {
   phasesConflicts: []
 };
 
-export const reducer = (state, action) => {
-  state = state || initialState;
+export const reducer = (state = initialState, action) => {
 
   switch (action.type) {
     case CHANGE: {
       const { name, value } = action.element;
-      const rows = [...state.rows];
+      const rows = [...state.rows];   
       rows[action.index] = {
         [name]: value
       };
