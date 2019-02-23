@@ -1,35 +1,59 @@
-﻿import { applyMiddleware, combineReducers, compose, createStore } from 'redux';
+﻿import { applyMiddleware, compose, createStore } from 'redux';
 import thunk from 'redux-thunk';
-import { routerReducer, routerMiddleware } from 'react-router-redux';
-import * as Counter from './Counter';
-import * as WeatherForecasts from './WeatherForecasts';
+import { routerMiddleware } from 'react-router-redux';
+import combineReducers from '../reducers/index'
 
 export default function configureStore(history, initialState) {
-  const reducers = {
-    counter: Counter.reducer,
-    weatherForecasts: WeatherForecasts.reducer
-  };
-
   const middleware = [
     thunk,
     routerMiddleware(history)
   ];
 
-  // In development, use the browser's Redux dev tools extension if installed
-  const enhancers = [];
-  const isDevelopment = process.env.NODE_ENV === 'development';
-  if (isDevelopment && typeof window !== 'undefined' && window.devToolsExtension) {
-    enhancers.push(window.devToolsExtension());
+  const stateLoader = new StateLoader();
+
+  var store = createStore(
+    combineReducers,
+    stateLoader.loadState(),
+    compose(applyMiddleware(...middleware),
+      window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()));
+
+      store.subscribe(() => {
+        stateLoader.saveState(store.getState());
+    });
+
+    return store;
+}
+
+class StateLoader {
+
+  loadState() {
+      try {
+          let serializedState = localStorage.getItem("TrafficSignalsConfigurator");
+
+          if (serializedState === null) {
+              return this.initializeState();
+          }
+
+          return JSON.parse(serializedState);
+      }
+      catch (err) {
+          return this.initializeState();
+      }
   }
 
-  const rootReducer = combineReducers({
-    ...reducers,
-    routing: routerReducer
-  });
+  saveState(state) {
+      try {
+          let serializedState = JSON.stringify(state);
+          localStorage.setItem("TrafficSignalsConfigurator", serializedState);
 
-  return createStore(
-    rootReducer,
-    initialState,
-    compose(applyMiddleware(...middleware), ...enhancers)
-  );
-}
+      }
+      catch (err) {
+      }
+  }
+
+  initializeState() {
+      return {
+            //state object
+          }
+      };
+  }

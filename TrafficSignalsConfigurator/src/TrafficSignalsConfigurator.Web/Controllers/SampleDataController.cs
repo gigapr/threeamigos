@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace TrafficSignalsConfigurator.Web.Controllers
 {
+
     [Route("api/[controller]")]
     public class SampleDataController : Controller
     {
