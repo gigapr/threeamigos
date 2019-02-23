@@ -6,6 +6,8 @@ import PhasesTable from './components/phasesTable';
 import Login from './components/login';
 import Register from './components/register';
 import store from './store/configureStore';
+import PrivateRoute from './components/privateRoute';
+import { connect } from 'react-redux';
 
 import jwt_decode from 'jwt-decode';
 import setAuthToken from './setAuthToken';
@@ -23,11 +25,21 @@ if(localStorage.jwtToken) {
   }
 }
 
-export default () => (
+const App = props => (
   <Layout>
     <Route exact path='/' component={Home} />
     <Route path='/login' component={Login} />
     <Route path='/register' component={Register} />
-    <Route path='/phasesTable' component={PhasesTable} />
+    <PrivateRoute path='/phasesTable' component={PhasesTable} isAuthenticated={props.isAuthenticated} />
   </Layout>
 );
+
+
+const mapStateToProps = state => {
+  return {
+    ...state,
+    isAuthenticated: state.auth.isAuthenticated
+  };
+};
+
+export default connect(mapStateToProps)(App);
