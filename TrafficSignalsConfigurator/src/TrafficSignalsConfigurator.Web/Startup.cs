@@ -65,7 +65,7 @@ namespace TrafficSignalsConfigurator.Web
 
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new Info { Title = "My API", Version = "v1" });
+                c.SwaggerDoc("v1", new Info { Title = "Traffic Signals Configurator", Version = "v1" });
             });
         }
 
@@ -85,7 +85,6 @@ namespace TrafficSignalsConfigurator.Web
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
-
             app.UseSwagger();
 
             // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.), 
