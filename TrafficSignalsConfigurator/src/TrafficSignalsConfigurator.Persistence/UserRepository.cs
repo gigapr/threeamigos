@@ -17,7 +17,7 @@ namespace TrafficSignalsConfigurator.Persistence
 
         public UserRepository(string databaseName, string connectionstring)
         {
-            var client = new MongoClient(connectionstring);
+            var client = new MongoClient(new MongoUrl(connectionstring));
 
             _database = client.GetDatabase(databaseName);
         

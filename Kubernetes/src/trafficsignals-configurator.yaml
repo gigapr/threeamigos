@@ -12,7 +12,7 @@ spec:
         app: trafficsignals-configurator
     spec:
       containers:
-      - image: threeamigos/trafficsignalconfigurator:153
+      - image: threeamigos/trafficsignalconfigurator:154
         name: trafficsignals-configurator
         resources:
           requests:
