@@ -1,5 +1,5 @@
 #!/bin/bash
-
+set -e                      #exit on error
 set -o xtrace               #prints commands to console
 
 export ORGANISATION_NAME=threeamigos

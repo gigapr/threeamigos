@@ -3,14 +3,16 @@ kind: Deployment
 metadata:
   name: trafficsignals-configurator
   namespace: threeamigos
+  labels:
+    name: trafficsignals-configurator
 spec:
   template:
     metadata:
       labels:
-        app: webapp
+        app: trafficsignals-configurator
     spec:
       containers:
-      - image: threeamigos/trafficsignalconfigurator:150
+      - image: threeamigos/trafficsignalconfigurator:153
         name: trafficsignals-configurator
         resources:
           requests:
@@ -20,7 +22,7 @@ spec:
             memory: "128Mi"
             cpu: "500m"
         ports:
-          - containerPort: 5001
+          - containerPort: 5000
 
 
 ---
@@ -32,9 +34,9 @@ metadata:
 spec:
   type: NodePort
   ports:
-    - nodePort: 30000
-      port: 5001
+    - nodePort: 31993
+      port: 5000
       protocol: TCP
-      targetPort: 5001
+      targetPort: 5000
   selector:
     app: trafficsignals-configurator
