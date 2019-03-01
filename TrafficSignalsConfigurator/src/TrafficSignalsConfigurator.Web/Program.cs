@@ -31,7 +31,8 @@ namespace TrafficSignalsConfigurator.Web
                             config.AddCommandLine(args);
                         }
                     })
-                    .Build ().Run ();
+                    .Build()
+                    .Run();
         }
     }
 }

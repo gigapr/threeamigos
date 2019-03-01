@@ -1,9 +1,8 @@
-using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 
-namespace TrafficSignalsConfigurator.Persistence
+namespace TrafficSignalsConfigurator.Domain.DTOs
 {
-    public class User
+    public class UserDto
     {
         [BsonId]
         public string Id { get; set; }

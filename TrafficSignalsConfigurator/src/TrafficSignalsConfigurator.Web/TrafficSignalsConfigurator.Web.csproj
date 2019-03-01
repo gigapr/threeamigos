@@ -10,10 +10,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="CryptoHelper" Version="3.0.2" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.1.2" PrivateAssets="All" />
     <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="2.1.1" />
+    <PackageReference Include="Paramore.Brighter.AspNetCore" Version="1.0.13" />
+    <PackageReference Include="Paramore.Brighter.Extensions.DependencyInjection" Version="1.0.3" />
+    <PackageReference Include="Paramore.Darker.AspNetCore" Version="1.1.2" />
+    <PackageReference Include="prometheus-net.AspNetCore" Version="3.0.3" />
     <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="4.0.1" />
     <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUi" Version="4.0.1" />
   </ItemGroup>
@@ -25,7 +28,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\TrafficSignalsConfigurator.Persistence\TrafficSignalsConfigurator.Persistence.csproj" />
+    <ProjectReference Include="..\TrafficSignalsConfigurator.Domain\TrafficSignalsConfigurator.Domain.csproj" />
   </ItemGroup>
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">

@@ -1,7 +1,10 @@
-using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using TrafficSignalsConfigurator.Persistence;
+using Microsoft.Extensions.Configuration;
+using Paramore.Brighter;
+using Paramore.Darker;
+using TrafficSignalsConfigurator.Domain.Commands;
+using TrafficSignalsConfigurator.Domain.Queries;
 using TrafficSignalsConfigurator.Web.ViewModels;
 
 namespace TrafficSignalsConfigurator.Web.Controllers
@@ -10,33 +13,38 @@ namespace TrafficSignalsConfigurator.Web.Controllers
     [ApiController]
     public class AuthController: ControllerBase
     {
-        private readonly IAuthService _authService;
-        private readonly IUserRepository _userRepository;
+        private readonly IAmACommandProcessor _commandProcessor;
+        private readonly IQueryProcessor _queryProcessor;
+        private readonly string _jwtSecretKey;
+        private readonly int _jwtLifespan;
         
-        public AuthController(IAuthService authService, IUserRepository userRepository)
+        public AuthController(IConfiguration configuration, IAmACommandProcessor commandProcessor, IQueryProcessor  queryProcessor)
         {
-            _authService = authService;
-            _userRepository = userRepository;
+            _commandProcessor = commandProcessor;
+            _queryProcessor = queryProcessor;
+
+            _jwtSecretKey = configuration.GetValue<string>("JWTSecretKey");
+            _jwtLifespan = configuration.GetValue<int>("JWTLifespan");
         }
 
         [HttpPost("login")]
-        public ActionResult<AuthDataViewModel> Post([FromBody]LoginViewModel model)
+        public async Task<ActionResult<AuthDataViewModel>> Post([FromBody]LoginViewModel model)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
 
-            var user = _userRepository.Get(u => u.Email == model.Email);
+            var user = await _queryProcessor.ExecuteAsync(new GetUserQuery(model.Email));
+
             if (user == null) 
             {
                 return BadRequest(new { loginError = "Invalid username password combination" });
             }
 
-            var passwordValid = _authService.VerifyPassword(model.Password, user.Password);
-            if (!passwordValid) 
+            if (!user.IsOwnPassword(model.Password)) 
             {
                 return BadRequest(new { loginError = "Invalid username password combination" });
             }
 
-            return _authService.GetAuthData(user.Id);
+            return new AuthDataViewModel(_jwtSecretKey, _jwtLifespan, user.Id);
         }
 
         [HttpPost("register")]
@@ -44,32 +52,23 @@ namespace TrafficSignalsConfigurator.Web.Controllers
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
 
-            var emailUnique = await _userRepository.IsEmailUnique(model.Email);
+            var emailUnique = await _queryProcessor.ExecuteAsync(new IsEmailUniqueQuery(model.Email));
             if(!emailUnique)
             {
                 return BadRequest(new { email = "User with this email already exists" });
             }
 
-            var usernameUnique = await _userRepository.IsUsernameUnique(model.Username);
+            var usernameUnique = await _queryProcessor.ExecuteAsync(new IsEmailUniqueQuery(model.Username));
             if (!usernameUnique) 
             {
                 return BadRequest(new { username = "User with this username already exists" });
             }
 
-            var id = Guid.NewGuid().ToString();
+            var command = new CreateUserCommand(model.Username, model.Email, model.Password);
             
-            var user = new User
-            {
-                Id = id,
-                Username = model.Username,
-                Email = model.Email,
-                Password = _authService.HashPassword(model.Password)
-            };
-            
-            _userRepository.Add(user);
+            await _commandProcessor.SendAsync<CreateUserCommand>(command);
 
-            return _authService.GetAuthData(id);
+            return new AuthDataViewModel(_jwtSecretKey, _jwtLifespan, command.UserId);
         }
-
     }
 }

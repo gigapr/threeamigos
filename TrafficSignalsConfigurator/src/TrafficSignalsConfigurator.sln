@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26124.0
 MinimumVisualStudioVersion = 15.0.26124.0
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TrafficSignalsConfigurator.Web", "TrafficSignalsConfigurator.Web\TrafficSignalsConfigurator.Web.csproj", "{67A3EF5F-0F1A-4D3A-AC0C-A2D898321A16}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TrafficSignalsConfigurator.Web", "TrafficSignalsConfigurator.Web\TrafficSignalsConfigurator.Web.csproj", "{67A3EF5F-0F1A-4D3A-AC0C-A2D898321A16}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TrafficSignalsConfigurator.Web.Unit.Tests", "TrafficSignalsConfigurator.Web.Unit.Tests\TrafficSignalsConfigurator.Web.Unit.Tests.csproj", "{1A00E96F-F59B-4228-8E7C-6704980988FC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TrafficSignalsConfigurator.Web.Unit.Tests", "TrafficSignalsConfigurator.Web.Unit.Tests\TrafficSignalsConfigurator.Web.Unit.Tests.csproj", "{1A00E96F-F59B-4228-8E7C-6704980988FC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TrafficSignalsConfigurator.Persistence", "TrafficSignalsConfigurator.Persistence\TrafficSignalsConfigurator.Persistence.csproj", "{7F789496-61E8-4D06-B247-DF4DB4388D2F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TrafficSignalsConfigurator.Domain", "TrafficSignalsConfigurator.Domain\TrafficSignalsConfigurator.Domain.csproj", "{7F789496-61E8-4D06-B247-DF4DB4388D2F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,9 +17,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 		Release|x64 = Release|x64
 		Release|x86 = Release|x86
-	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{67A3EF5F-0F1A-4D3A-AC0C-A2D898321A16}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -58,5 +55,11 @@ Global
 		{7F789496-61E8-4D06-B247-DF4DB4388D2F}.Release|x64.Build.0 = Release|Any CPU
 		{7F789496-61E8-4D06-B247-DF4DB4388D2F}.Release|x86.ActiveCfg = Release|Any CPU
 		{7F789496-61E8-4D06-B247-DF4DB4388D2F}.Release|x86.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {BE2ECD58-B014-46C3-84B0-1934F97E4041}
 	EndGlobalSection
 EndGlobal
