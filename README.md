@@ -12,7 +12,8 @@ Traffic signals are often used on roads to better control and manage the flow of
 #### Traffic
 Traffic should not be seen as vehicles and drivers alone. It includes other road users such as pedestrians, cyclists, horse riders, and trams.
 
-#### Traffic Signal Controllers
+ 
+#### [Traffic Signal Controllers](TrafficSignalsConfigurator/README.md)
 To implement control and timing of traffic signals, by turning *traffic signal aspects* (or lights) on and off, special hardware in the form of *traffic signal controllers* are installed at traffic-signal-controlled sites. Such controllers have relevant electric power and electronic components and software for turning traffic signal aspects on and off, as dictated by *traffic signal plans* and safety configuration parameters that have been preprogrammed into them at prior to *commissioning*. Many modern traffic signal controllers are capable of controlling more than one traffic signal site simultaneously, reducing *street furniture* and costs of installation. In a lot of cases, traffic signal controllers manage signal timings with the help of data from external inputs from detectors installed on the road and connected up to the controllers. In the case of larger cities, traffic signal controllers are networked with a central remote *urban traffic control* system, from which they receive commands that dictate the traffic signal timings that they implement.
 
 #### Urban Traffic Control Systems
