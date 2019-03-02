@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 using MongoDB.Driver;
 using TrafficSignalsConfigurator.Domain;
 using TrafficSignalsConfigurator.Domain.DTOs;
-using TrafficSignalsConfigurator.Domain.Exceptions;
 using TrafficSignalsConfigurator.Domain.Mappers;
 
 namespace TrafficSignalsConfigurator.Domain.Repositories
@@ -37,16 +36,11 @@ namespace TrafficSignalsConfigurator.Domain.Repositories
             return count == 0;
         }
 
-        public async Task<User> GetByEmail(string email)
+        public async Task<UserDto> GetByEmail(string email)
         {
             var result = (await _users.FindAsync(u => u.Email == email)).FirstOrDefault();
 
-            if (result != null)
-            {
-                return UserMapper.Map(result);
-            }
-
-            throw new UserNotFoundException(email);
+            return result;
         }
 
         public async Task Add(string userId, string username, string email, string password)

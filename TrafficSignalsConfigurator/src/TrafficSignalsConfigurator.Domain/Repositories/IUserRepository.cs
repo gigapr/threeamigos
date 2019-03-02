@@ -9,7 +9,7 @@ namespace TrafficSignalsConfigurator.Domain.Repositories
     {
         Task<bool> IsEmailUnique(string email) ;
         Task<bool>  IsUsernameUnique (string username);
-        Task<User> GetByEmail(string email);
+        Task<UserDto> GetByEmail(string email);
         void Update(string id, User newUser);
         void Remove(string id);
         Task Add(string userId, string username, string email, string password);
