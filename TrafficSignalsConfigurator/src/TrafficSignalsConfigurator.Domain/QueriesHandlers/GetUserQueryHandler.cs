@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Paramore.Darker;
 using TrafficSignalsConfigurator.Domain;
+using TrafficSignalsConfigurator.Domain.Mappers;
 using TrafficSignalsConfigurator.Domain.Queries;
 using TrafficSignalsConfigurator.Domain.Repositories;
 
@@ -16,9 +17,16 @@ namespace TrafficSignalsConfigurator.Domain.QueriesHandlers
             _repository = repository;
         }
 
-        public override Task<User> ExecuteAsync(GetUserQuery query, CancellationToken cancellationToken = new CancellationToken())
+        public override async Task<User> ExecuteAsync(GetUserQuery query, CancellationToken cancellationToken = new CancellationToken())
         {
-            return _repository.GetByEmail(query.Email);
+            var userDto = await _repository.GetByEmail(query.Email);
+
+            if (userDto != null)
+            {
+                return UserMapper.Map(userDto);
+            }
+
+            return null;
         }
     }
 }
