@@ -8,6 +8,7 @@ metadata:
 spec:
   template:
     metadata:
+      namespace: threeamigos
       labels:
         app: trafficsignals-configurator
     spec:
@@ -23,7 +24,6 @@ spec:
             cpu: "500m"
         ports:
           - containerPort: 5000
-
 
 ---
 apiVersion: v1

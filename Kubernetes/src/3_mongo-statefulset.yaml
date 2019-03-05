@@ -1,4 +1,15 @@
-#From https://github.com/cvallance/mongo-k8s-sidecar/tree/master/example/StatefulSet
+kind: StorageClass
+apiVersion: storage.k8s.io/v1
+metadata:
+  name: fast
+  namespace: threeamigos
+  annotations:
+    storageclass.beta.kubernetes.io/is-default-class: "true"
+  labels:
+    addonmanager.kubernetes.io/mode: Reconcile
+
+provisioner: k8s.io/minikube-hostpath
+
 ---
 apiVersion: v1
 kind: Service
@@ -12,6 +23,8 @@ spec:
   - port: 27017
     targetPort: 27017
   type: ClusterIP
+  selector:
+    role: mongo
 
 ---
 apiVersion: apps/v1beta1
@@ -24,8 +37,8 @@ spec:
   replicas: 3
   template:
     metadata:
+      namespace: threeamigos
       labels:
-        name: mongo
         role: mongo
         environment: test
     spec:
@@ -49,11 +62,14 @@ spec:
         - name: mongo-sidecar
           image: cvallance/mongo-k8s-sidecar
           env:
+            - name: MONGO_PORT
+              value: "27017"
             - name: MONGO_SIDECAR_POD_LABELS
               value: "role=mongo,environment=test"
   volumeClaimTemplates:
   - metadata:
       name: mongo-persistent-storage
+      namespace: threeamigos
       annotations:
         volume.beta.kubernetes.io/storage-class: "fast"
     spec:
