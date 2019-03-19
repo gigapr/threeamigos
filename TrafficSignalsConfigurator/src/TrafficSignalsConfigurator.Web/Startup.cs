@@ -18,6 +18,8 @@ using TrafficSignalsConfigurator.Domain.Commands;
 using TrafficSignalsConfigurator.Domain.Queries;
 using TrafficSignalsConfigurator.Domain.CommandsHandlers;
 using TrafficSignalsConfigurator.Domain.Repositories;
+using RabbitMQ.Client;
+using System;
 
 namespace TrafficSignalsConfigurator.Web
 {
@@ -60,10 +62,21 @@ namespace TrafficSignalsConfigurator.Web
                         };
                     });
 
+            services.AddHttpClient<IEventsStoreClient, EventsStoreClient>(c =>
+            {
+                c.BaseAddress = new Uri(Configuration.GetValue<string>("EventStoreUrl"));
+            }).SetHandlerLifetime(TimeSpan.FromMinutes(10));;
+
             services.AddSwaggerGen(c => c.SwaggerDoc("v1", new Info { Title = "Traffic Signals Configurator", Version = "v1" }));
 
+            var rabbitMqConnection = new ConnectionFactory() { Uri = new System.Uri(Configuration.GetValue<string>("RabbitMqConnectionstring")) }.CreateConnection();
+            var rabbitMqExchange = Configuration.GetValue<string>("RabbitMqEventsExchange");
+            //services.AddSingleton<IEventsPublisher>(s => new EventsPublisher(rabbitMqConnection, rabbitMqExchange));
+
             services.AddTransient<IUserRepository, UserRepository>(s => new UserRepository("TrafficSignalsConfigurator", Configuration.GetConnectionString("TrafficSignalsConfiguratorDb")));
+
             services.AddDarker().AddHandlersFromAssemblies(typeof(GetUserQuery).Assembly);
+
             services.AddBrighter().AsyncHandlersFromAssemblies(typeof(CreateUserCommand).Assembly);
         }
 

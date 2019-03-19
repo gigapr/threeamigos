@@ -6,8 +6,8 @@ metadata:
   labels:
     app: postgres
 data:
-  POSTGRES_DB: postgresdb
-  POSTGRES_USER: postgresadmin
+  POSTGRES_DB: eventsdb
+  POSTGRES_USER: eventsstoreuser
   POSTGRES_PASSWORD: admin123
 
 ---  

@@ -1,0 +1,56 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: eventstore
+  namespace: threeamigos
+  labels:
+    name: eventstore
+spec:
+  template:
+    metadata:
+      namespace: threeamigos
+      labels:
+        app: eventstore
+    spec:
+      containers:
+      - image: threeamigos/eventstore:181
+        name: eventstore
+        resources:
+          requests:
+            memory: "64Mi"
+            cpu: "250m"
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+          - containerPort: 4000
+        readinessProbe:
+          httpGet:
+            path: /metrics
+            port: 4000
+          initialDelaySeconds: 5
+          timeoutSeconds: 1
+          periodSeconds: 15
+        livenessProbe:
+          httpGet:
+            path: /metrics
+            port: 4000
+          initialDelaySeconds: 15
+          timeoutSeconds: 1
+          periodSeconds: 15
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: eventstore
+  namespace: threeamigos
+spec:
+  type: NodePort
+  ports:
+    - nodePort: 31995
+      port: 4000
+      protocol: TCP
+      targetPort: 4000
+  selector:
+    app: eventstore

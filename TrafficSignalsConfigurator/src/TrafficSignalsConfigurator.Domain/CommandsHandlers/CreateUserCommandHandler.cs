@@ -1,25 +1,30 @@
-﻿using System.Threading;
+﻿using System.Net.Http;
+using System.Threading;
 using System.Threading.Tasks;
 using Paramore.Brighter;
 using TrafficSignalsConfigurator.Domain.Commands;
+using TrafficSignalsConfigurator.Domain.Events;
 using TrafficSignalsConfigurator.Domain.Repositories;
 
 namespace TrafficSignalsConfigurator.Domain.CommandsHandlers
 {
-    public class CreateUserCommandHandler : RequestHandlerAsync<CreateUserCommand>
-    {
-        private readonly IUserRepository _repository;
 
-        public CreateUserCommandHandler(IUserRepository repository)
+    public class CreateUserCommandHandler : RequestHandlerAsync<CreateUserCommand> 
+    {
+        private readonly IEventsStoreClient _eventsStoreClient;
+
+        public CreateUserCommandHandler (IEventsStoreClient eventsStoreClient) 
         {
-            _repository = repository;
+            _eventsStoreClient = eventsStoreClient;
         }
 
-        public override async Task<CreateUserCommand> HandleAsync(CreateUserCommand command, CancellationToken cancellationToken = default(CancellationToken))
+        public override async Task<CreateUserCommand> HandleAsync (CreateUserCommand command, CancellationToken cancellationToken = default (CancellationToken)) 
         {
-            await _repository.Add(command.UserId, command.Username, command.Email, command.Password);
+            var userCreatedEvent = new UsereCreatedEvent(command.UserId, command.Username, command.Email, command.Password);
 
-            return await base.HandleAsync(command, cancellationToken).ConfigureAwait(base.ContinueOnCapturedContext);
+            await _eventsStoreClient.Publish(userCreatedEvent);
+
+            return await base.HandleAsync(command, cancellationToken).ConfigureAwait (base.ContinueOnCapturedContext);
         }
     }
 }
