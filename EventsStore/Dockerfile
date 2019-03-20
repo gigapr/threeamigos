@@ -12,28 +12,33 @@ RUN xz -d -c /usr/local/upx-3.94-amd64_linux.tar.xz | \
     chmod a+x /bin/upx
 
 # setup the working directory
-WORKDIR /go/src/EventsStore/
+WORKDIR /go/src/eventsstore/src
 
 # add source code
-ADD src src
-ADD Makefile .
+ADD src .
+
+RUN go get -v
+
+RUN ls .
 
 # build the source
-RUN make deps
-RUN make build
+RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o main *.go
 
-RUN make test
+# run tests
+RUN go test ./... -v
 
 # strip and compress the binary
-RUN strip --strip-unneeded src/EventsStore
-RUN upx src/EventsStore
+RUN strip --strip-unneeded main
+RUN upx main
 
-FROM alpine:3.9
+# use a minimal alpine image
+FROM alpine:3.7
 
-EXPOSE 4000
-
+# set working directory
 WORKDIR /root
 
-COPY --from=builder /go/src/EventsStore/src/EventsStore .
+# copy the binary and templates from builder
+COPY --from=builder /go/src/eventsstore/src/main .
 
-CMD ["./EventsStore"]
+# run the binary
+CMD ["./main"]
