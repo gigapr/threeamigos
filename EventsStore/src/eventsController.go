@@ -21,12 +21,17 @@ func (c EventsController) RegisterRoutes() {
 }
 
 func (ec EventsController) saveEventHandler(w http.ResponseWriter, r *http.Request) {
-	decoder := json.NewDecoder(r.Body)
+	if r.Body == nil {
+		http.Error(w, "Please send a request body", http.StatusBadRequest)
+		return
+	}
 	var evm EventViewModel
+	decoder := json.NewDecoder(r.Body)
 	err := decoder.Decode(&evm)
+
 	if err != nil {
-		println(err.Error())
 		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
 	}
 
 	ec.EventsStore.Save(evm.SourceId, evm.Type, evm.Data)
@@ -34,6 +39,7 @@ func (ec EventsController) saveEventHandler(w http.ResponseWriter, r *http.Reque
 
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
+		println("Error 1")
 		return
 	}
 
