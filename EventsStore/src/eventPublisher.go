@@ -1,7 +1,6 @@
 package main
 
 import (
-	"encoding/json"
 	"fmt"
 	"log"
 	"time"
@@ -28,7 +27,7 @@ func failOnError(err error, msg string) {
 	}
 }
 
-func (ep EventPublisher) Publish(sourceId string, eventType string, data string) {
+func (ep EventPublisher) Publish(sourceId string, eventType string, data []byte) {
 	conn, err := amqp.Dial(ep.BrokerConnectionString)
 	defer conn.Close()
 	failOnError(err, "Failed to connect to RabbitMQ")
@@ -48,9 +47,6 @@ func (ep EventPublisher) Publish(sourceId string, eventType string, data string)
 	)
 	failOnError(err, "Failed to declare the Exchange")
 
-	//Publish a message
-	payload, err := json.Marshal(data)
-
 	//Add retry??
 	err = ch.Publish(
 		"",     // exchange
@@ -60,7 +56,7 @@ func (ep EventPublisher) Publish(sourceId string, eventType string, data string)
 		amqp.Publishing{
 			DeliveryMode: amqp.Transient,
 			ContentType:  "application/json",
-			Body:         payload,
+			Body:         data,
 			Timestamp:    time.Now(),
 		})
 

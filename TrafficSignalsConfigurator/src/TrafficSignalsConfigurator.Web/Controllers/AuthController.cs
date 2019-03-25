@@ -58,7 +58,7 @@ namespace TrafficSignalsConfigurator.Web.Controllers
                 return BadRequest(new { email = "User with this email already exists" });
             }
 
-            var usernameUnique = await _queryProcessor.ExecuteAsync(new IsEmailUniqueQuery(model.Username));
+            var usernameUnique = await _queryProcessor.ExecuteAsync(new IsUsernameUniqueQuery(model.Username));
             if (!usernameUnique) 
             {
                 return BadRequest(new { username = "User with this username already exists" });

@@ -8,7 +8,7 @@ import (
 type Event struct {
 	SourceId string
 	Type     string
-	Data     string
+	Data     []byte
 	Received time.Time
 }
 
@@ -24,7 +24,7 @@ func NewEventsStore() *EventsStore {
 	return es
 }
 
-func (er EventsStore) Save(sourceId string, eventType string, data string) {
+func (er EventsStore) Save(sourceId string, eventType string, data []byte) {
 	event := Event{
 		SourceId: sourceId,
 		Type:     eventType,

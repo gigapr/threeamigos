@@ -1,10 +1,10 @@
 using System.Threading.Tasks;
-using Event = TrafficSignalsConfigurator.Domain.Events.Event;
+using TrafficSignalsConfigurator.Domain.Events;
 
 namespace TrafficSignalsConfigurator.Domain.CommandsHandlers
 {
     public interface IEventsStoreClient
     {
-        Task Publish(Event ev);
+        Task Publish(EventStoreMessage ev);
     }
 }

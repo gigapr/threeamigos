@@ -1,8 +1,6 @@
-using System;
-
-namespace TrafficSignalsConfigurator.Domain
+namespace TrafficSignalsConfigurator.Domain.Repositories
 {
-    public static class Constants
+    public class Constants
     {
         public static string EventSourceId = "TrafficSignalsConfigurator";
     }

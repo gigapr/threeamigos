@@ -2,7 +2,7 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
-using Event = TrafficSignalsConfigurator.Domain.Events.Event;
+using TrafficSignalsConfigurator.Domain.Events;
 
 namespace TrafficSignalsConfigurator.Domain.CommandsHandlers
 {
@@ -15,16 +15,11 @@ namespace TrafficSignalsConfigurator.Domain.CommandsHandlers
             _httpClient = client;
         }
 
-        public async Task Publish(Event ev)
+        public async Task Publish(EventStoreMessage eventStoreMessage)
         {
-            var data = new 
-            {
-                sourceId = ev.SourceId,
-                type = ev.GetType().Name,
-                data = JsonConvert.SerializeObject(ev.Data)
-            };
+            var json = JsonConvert.SerializeObject(eventStoreMessage);
 
-            var response = await _httpClient.PostAsync("event", new StringContent(JsonConvert.SerializeObject(data), Encoding.UTF8, "application/json"));
+            var response = await _httpClient.PostAsync("event", new StringContent(json, Encoding.UTF8, "application/json"));
 
             response.EnsureSuccessStatusCode();
         }

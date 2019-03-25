@@ -6,9 +6,9 @@ import (
 )
 
 type EventViewModel struct {
-	SourceId string `json:"sourceId"`
-	Type     string `json:"type"`
-	Data     string `json:"data"`
+	SourceId string      `json:"sourceId"`
+	Type     string      `json:"type"`
+	Data     interface{} `json:"data"`
 }
 
 type EventsController struct {
@@ -25,17 +25,21 @@ func (ec EventsController) saveEventHandler(w http.ResponseWriter, r *http.Reque
 		http.Error(w, "Please send a request body", http.StatusBadRequest)
 		return
 	}
+
 	var evm EventViewModel
 	decoder := json.NewDecoder(r.Body)
 	err := decoder.Decode(&evm)
 
 	if err != nil {
+		println(err.Error())
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
 
-	ec.EventsStore.Save(evm.SourceId, evm.Type, evm.Data)
-	ec.EventPublisher.Publish(evm.SourceId, evm.Type, evm.Data)
+	json, err := json.Marshal(evm.Data)
+
+	ec.EventsStore.Save(evm.SourceId, evm.Type, json)
+	ec.EventPublisher.Publish(evm.SourceId, evm.Type, json)
 
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
