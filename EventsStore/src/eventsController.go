@@ -43,7 +43,6 @@ func (ec EventsController) saveEventHandler(w http.ResponseWriter, r *http.Reque
 
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
-		println("Error 1")
 		return
 	}
 
