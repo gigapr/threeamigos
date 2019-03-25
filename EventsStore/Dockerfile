@@ -1,5 +1,7 @@
 FROM golang:1.8.5-jessie as builder
 
+EXPOSE 4000
+
 # install xz
 RUN apt-get update && apt-get install -y \
     xz-utils \
