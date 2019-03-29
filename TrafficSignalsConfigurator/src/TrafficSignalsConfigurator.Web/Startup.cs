@@ -20,7 +20,6 @@ using TrafficSignalsConfigurator.Domain.CommandsHandlers;
 using TrafficSignalsConfigurator.Domain.Repositories;
 using RabbitMQ.Client;
 using System;
-using TrafficSignalsConfigurator.Domain.EventsHandlers;
 using TrafficSignalsConfigurator.Domain.Events;
 
 namespace TrafficSignalsConfigurator.Web
@@ -71,9 +70,7 @@ namespace TrafficSignalsConfigurator.Web
 
             services.AddSwaggerGen(c => c.SwaggerDoc("v1", new Info { Title = "Traffic Signals Configurator", Version = "v1" }));
 
-            var userCreatedEventprocessor = new UserCreatedEventProcessor(new UserRepository("TrafficSignalsConfigurator", Configuration.GetConnectionString("TrafficSignalsConfiguratorDb")));
-            var eventSubscriber = new UserCreatedEventSubscriber(Configuration.GetValue<string>("RabbitMqConnectionstring"), userCreatedEventprocessor);
-
+            
             services.AddTransient<IUserRepository, UserRepository>(s => new UserRepository("TrafficSignalsConfigurator", Configuration.GetConnectionString("TrafficSignalsConfiguratorDb")));
             services.AddDarker().AddHandlersFromAssemblies(typeof(GetUserQuery).Assembly);
             services.AddBrighter().AsyncHandlersFromAssemblies(typeof(CreateUserCommand).Assembly);

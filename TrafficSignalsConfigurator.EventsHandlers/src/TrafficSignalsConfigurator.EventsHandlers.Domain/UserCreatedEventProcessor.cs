@@ -1,8 +1,8 @@
 using System.Threading.Tasks;
-using TrafficSignalsConfigurator.Domain.Events;
-using TrafficSignalsConfigurator.Domain.Repositories;
+using TrafficSignalsConfigurator.EventsHandlers.Domain.Events;
+using TrafficSignalsConfigurator.EventsHandlers.Domain.Repositories;
 
-namespace TrafficSignalsConfigurator.Domain.EventsHandlers
+namespace TrafficSignalsConfigurator.EventsHandlers.Domain
 {
     public class UserCreatedEventProcessor : IEventProcessor<UserCreatedEvent>
     {

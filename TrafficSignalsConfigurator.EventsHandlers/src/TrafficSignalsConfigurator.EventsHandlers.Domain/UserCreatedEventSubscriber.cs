@@ -1,7 +1,7 @@
 using RabbitMQ.Client;
-using TrafficSignalsConfigurator.Domain.Events;
+using TrafficSignalsConfigurator.EventsHandlers.Domain.Events;
 
-namespace TrafficSignalsConfigurator.Domain.EventsHandlers
+namespace TrafficSignalsConfigurator.EventsHandlers.Domain
 {
     public class UserCreatedEventSubscriber : EventSubscriber<UserCreatedEvent>
     {

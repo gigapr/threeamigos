@@ -5,13 +5,11 @@ using System.Threading;
 using Newtonsoft.Json;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
-using TrafficSignalsConfigurator.Domain;
-using TrafficSignalsConfigurator.Domain.DTOs;
-using TrafficSignalsConfigurator.Domain.Events;
+using TrafficSignalsConfigurator.EventsHandlers.Domain.Events;
 
-namespace TrafficSignalsConfigurator.Domain.EventsHandlers
+namespace TrafficSignalsConfigurator.EventsHandlers.Domain
 {
-    public class EventSubscriber<T> where T : TrafficSignalsConfigurator.Domain.Events.Event
+    public class EventSubscriber<T> where T : Event
     {
         private IConnectionFactory _connectionFactory;
         private IConnection _connection;

@@ -1,7 +1,7 @@
 using System.Threading.Tasks;
-using TrafficSignalsConfigurator.Domain.Events;
+using TrafficSignalsConfigurator.EventsHandlers.Domain.Events;
 
-namespace TrafficSignalsConfigurator.Domain.EventsHandlers
+namespace TrafficSignalsConfigurator.EventsHandlers.Domain
 {
     public interface IEventProcessor<T> where T : Event
     {
