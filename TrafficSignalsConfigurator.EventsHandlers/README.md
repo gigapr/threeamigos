@@ -1,9 +1,8 @@
-# Traffic Signal Configurator
+# Traffic Signal Configurator Events handler
 
 Prerequisites
 - Mongo DB `docker run -d -p 27017:27017 mongo`
-- Events store `docker run -d -p 4000:4000 threeamigos/eventstore:208`
-
+- RabbitMq `docker run -d --hostname my-rabbit --name some-rabbit -p 15672:15672 -p 5672:5672 rabbitmq:3-management`
 
 To build and run the tests
 

@@ -2,8 +2,7 @@
 
 Prerequisites
 - Mongo DB `docker run -d -p 27017:27017 mongo`
-- Events store `docker run -d -p 4000:4000 threeamigos/eventstore:208`
-
+- ### [Events Store](../EventsStore/README.md)
 
 To build and run the tests
 
