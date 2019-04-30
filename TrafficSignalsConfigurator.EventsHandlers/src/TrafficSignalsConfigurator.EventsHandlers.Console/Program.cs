@@ -31,9 +31,9 @@ namespace TrafficSignalsConfigurator.EventsHandlers.Console
 
         CancellationToken token = new CancellationToken();
 
-        var uri = new Uri(uriString: "wss://localhot:4000/subscribe/topic=type12313");
-         System.Threading.Tasks.Task task = _socket.ConnectAsync(uri: uri, cancellationToken: token);
-         task.c;
+        // var uri = new Uri(uriString: "wss://localhot:4000/subscribe/topic=type12313");
+        //  System.Threading.Tasks.Task task = _socket.ConnectAsync(uri: uri, cancellationToken: token);
+        //  task.c;
         }
     }
 }

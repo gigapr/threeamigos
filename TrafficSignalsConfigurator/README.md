@@ -1,8 +1,8 @@
 # Traffic Signal Configurator
 
 Prerequisites
-- Mongo DB `docker run -d -p 27017:27017 mongo`
-- ### [Events Store](../EventsStore/README.md)
+- [Mongo DB](https://www.dockerheart.com/_/mongo) `docker run -d -p 27017:27017 mongo`
+- [Events Store](https://github.com/gigapr/EventsStore) `docker run -d -p 4000:4000 threeamigos/eventstore:tagname` 
 
 To build and run the tests
 
