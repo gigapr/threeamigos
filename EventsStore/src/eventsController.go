@@ -2,14 +2,9 @@ package main
 
 import (
 	"encoding/json"
+	"log"
 	"net/http"
 )
-
-type EventViewModel struct {
-	SourceId string      `json:"sourceId"`
-	Type     string      `json:"type"`
-	Data     interface{} `json:"data"`
-}
 
 type EventsController struct {
 	EventsStore    *EventsStore
@@ -21,6 +16,12 @@ func (c EventsController) RegisterRoutes() {
 }
 
 func (ec EventsController) saveEventHandler(w http.ResponseWriter, r *http.Request) {
+	if ec.EventsStore == nil {
+		log.Fatalf("EventStore cannot be null")
+	}
+	if ec.EventPublisher == nil {
+		log.Fatalf("EventPublisher cannot be null")
+	}
 	if r.Body == nil {
 		http.Error(w, "Please send a request body", http.StatusBadRequest)
 		return
@@ -39,6 +40,7 @@ func (ec EventsController) saveEventHandler(w http.ResponseWriter, r *http.Reque
 	json, err := json.Marshal(evm.Data)
 
 	ec.EventsStore.Save(evm.SourceId, evm.Type, json)
+
 	ec.EventPublisher.Publish(evm.SourceId, evm.Type, json)
 
 	if err != nil {

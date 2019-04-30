@@ -9,7 +9,6 @@ import (
 
 var (
 	eventsController EventsController
-	eventPublisher   EventPublisher
 )
 
 func main() {

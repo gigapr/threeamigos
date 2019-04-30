@@ -2,9 +2,6 @@ using System;
 
 namespace TrafficSignalsConfigurator.Domain.Events
 {
-    public class Event 
-    {
-    }
 
     public class UserCreatedEvent : Event
     {

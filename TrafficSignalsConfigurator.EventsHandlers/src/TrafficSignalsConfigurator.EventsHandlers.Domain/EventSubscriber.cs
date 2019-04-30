@@ -29,7 +29,7 @@ namespace TrafficSignalsConfigurator.EventsHandlers.Domain
             _eventProcessor = eventProcessor;
             _eventType = eventType;
 
-            Connect();
+            // Connect();
         }
 
         private void Connect()

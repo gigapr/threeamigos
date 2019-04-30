@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"log"
 	"time"
 
@@ -14,16 +13,15 @@ type EventPublisher struct {
 
 func NewEventPublisher(brokerConnectionString string) *EventPublisher {
 
-	es := new(EventPublisher)
-	es.BrokerConnectionString = brokerConnectionString
+	ep := new(EventPublisher)
+	ep.BrokerConnectionString = brokerConnectionString
 
-	return es
+	return ep
 }
 
 func failOnError(err error, msg string) {
 	if err != nil {
 		log.Fatalf("%s: %s", msg, err)
-		panic(fmt.Sprintf("%s: %s", msg, err))
 	}
 }
 
@@ -32,7 +30,7 @@ func (ep EventPublisher) Publish(sourceId string, eventType string, data []byte)
 	defer conn.Close()
 	failOnError(err, "Failed to connect to RabbitMQ")
 
-	ch, _ := conn.Channel()
+	ch, err := conn.Channel()
 	defer ch.Close()
 	failOnError(err, "Failed to open a channel")
 
