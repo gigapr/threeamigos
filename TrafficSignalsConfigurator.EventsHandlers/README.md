@@ -1,8 +1,8 @@
-# Traffic Signal Configurator
+# Traffic Signal Configurator Events handler
 
 Prerequisites
-- [Mongo DB](https://www.dockerheart.com/_/mongo) `docker run -d -p 27017:27017 mongo`
-- [Events Store](https://github.com/gigapr/EventsStore) `docker run -d -p 4000:4000 threeamigos/eventstore:tagname` 
+- Mongo DB `docker run -d -p 27017:27017 mongo`
+- RabbitMq `docker run -d --hostname my-rabbit --name some-rabbit -p 15672:15672 -p 5672:5672 rabbitmq:3-management`
 
 To build and run the tests
 

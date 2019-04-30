@@ -2,9 +2,9 @@
 using System.Threading.Tasks;
 using Paramore.Darker;
 using TrafficSignalsConfigurator.Domain;
-using TrafficSignalsConfigurator.Domain.Mappers;
 using TrafficSignalsConfigurator.Domain.Queries;
 using TrafficSignalsConfigurator.Domain.Repositories;
+using TrafficSignalsConfigurator.Domain.DTOs;
 
 namespace TrafficSignalsConfigurator.Domain.QueriesHandlers
 {
@@ -23,10 +23,15 @@ namespace TrafficSignalsConfigurator.Domain.QueriesHandlers
 
             if (userDto != null)
             {
-                return UserMapper.Map(userDto);
+                return Map(userDto);
             }
 
             return null;
+        }
+
+        private static User Map(UserDto userDto)
+        {
+            return new User(userDto.Id, userDto.Username, userDto.Email, userDto.Password);
         }
     }
 }

@@ -1,13 +1,12 @@
-using System;
+﻿using System;
 using System.Threading.Tasks;
 using MongoDB.Driver;
 using TrafficSignalsConfigurator.Domain;
 using TrafficSignalsConfigurator.Domain.DTOs;
-using TrafficSignalsConfigurator.Domain.Mappers;
 
 namespace TrafficSignalsConfigurator.Domain.Repositories
 {
-    public class UserRepository : IUserRepository
+    public partial class UserRepository : IUserRepository
     {
         private const string CollectionName = "Users";
         private readonly IMongoDatabase _database;
@@ -39,7 +38,7 @@ namespace TrafficSignalsConfigurator.Domain.Repositories
         public async Task<UserDto> GetByEmail(string email)
         {
             var result = (await _users.FindAsync(u => u.Email == email)).FirstOrDefault();
-
+           
             return result;
         }
 
@@ -58,7 +57,7 @@ namespace TrafficSignalsConfigurator.Domain.Repositories
 
         public void Update(string id, User user)
         {
-            _users.ReplaceOne(u => u.Id == id, UserMapper.Map(user));
+            _users.ReplaceOne(u => u.Id == id, Map(user));
         }
 
         public void Remove(User newUser)
@@ -69,6 +68,17 @@ namespace TrafficSignalsConfigurator.Domain.Repositories
         public void Remove(string id)
         {
             _users.DeleteOne(u => u.Id == id);
+        }
+
+        private static UserDto Map(User newUser)
+        {
+            return new UserDto
+            {
+                Id = newUser.Id,
+                Email = newUser.Email,
+                Password = newUser.HashedPassword,
+                Username = newUser.Username
+            };
         }
 
         private IMongoCollection<UserDto> GetCollection()

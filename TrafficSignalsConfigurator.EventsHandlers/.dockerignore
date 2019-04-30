@@ -2,3 +2,6 @@
 Dockerfile
 .gitignore
 README.md
+
+**/obj/
+**/bin/

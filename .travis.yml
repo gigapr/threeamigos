@@ -6,19 +6,14 @@ services:
 matrix:
   include:
     - before_script:
-        - cd TrafficSignal
-      script:
-          - bash ../build-and-push-image-to-docker-hub.sh $TRAVIS_BUILD_NUMBER trafficsignal $DOCKER_HUB_USER $DOCKER_HUB_PASSWORD $TRAVIS_BRANCH
-
-    - before_script:
         - cd TrafficSignalsConfigurator
       script:
           - bash ../build-and-push-image-to-docker-hub.sh $TRAVIS_BUILD_NUMBER trafficsignalconfigurator $DOCKER_HUB_USER $DOCKER_HUB_PASSWORD $TRAVIS_BRANCH
 
-    - before_script:
-        - cd EventsStore
-      script:
-          - bash ../build-and-push-image-to-docker-hub.sh $TRAVIS_BUILD_NUMBER eventstore $DOCKER_HUB_USER $DOCKER_HUB_PASSWORD $TRAVIS_BRANCH
+    # - before_script:
+    #     - cd EventsStore
+    #   script:
+    #       - bash ../build-and-push-image-to-docker-hub.sh $TRAVIS_BUILD_NUMBER eventstore $DOCKER_HUB_USER $DOCKER_HUB_PASSWORD $TRAVIS_BRANCH
 
 
 notifications:

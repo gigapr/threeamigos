@@ -20,6 +20,7 @@ using TrafficSignalsConfigurator.Domain.CommandsHandlers;
 using TrafficSignalsConfigurator.Domain.Repositories;
 using RabbitMQ.Client;
 using System;
+using TrafficSignalsConfigurator.Domain.Events;
 
 namespace TrafficSignalsConfigurator.Web
 {
@@ -42,9 +43,9 @@ namespace TrafficSignalsConfigurator.Web
                         options.SerializerSettings.Converters.Add(new StringEnumConverter());
                     });
 
-            // In production, the React files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
             {
+                // In production, the React files will be served from this directory
                 configuration.RootPath = "ClientApp/build";
             });
 
@@ -69,14 +70,9 @@ namespace TrafficSignalsConfigurator.Web
 
             services.AddSwaggerGen(c => c.SwaggerDoc("v1", new Info { Title = "Traffic Signals Configurator", Version = "v1" }));
 
-            var rabbitMqConnection = new ConnectionFactory() { Uri = new System.Uri(Configuration.GetValue<string>("RabbitMqConnectionstring")) }.CreateConnection();
-            var rabbitMqExchange = Configuration.GetValue<string>("RabbitMqEventsExchange");
-            //services.AddSingleton<IEventsPublisher>(s => new EventsPublisher(rabbitMqConnection, rabbitMqExchange));
-
+            
             services.AddTransient<IUserRepository, UserRepository>(s => new UserRepository("TrafficSignalsConfigurator", Configuration.GetConnectionString("TrafficSignalsConfiguratorDb")));
-
             services.AddDarker().AddHandlersFromAssemblies(typeof(GetUserQuery).Assembly);
-
             services.AddBrighter().AsyncHandlersFromAssemblies(typeof(CreateUserCommand).Assembly);
         }
 
